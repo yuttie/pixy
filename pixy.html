@@ -116,11 +116,13 @@
                 for (var j = 1; j <= 16; ++j) {
                     var p = $('#panel' + i + '-' + j);
                     if (i == selected_row) {
-                        p.css('left', -20 * (8 - j) - 10);
-                        p.css('top', -10);
                         p.css('z-index', 20);
-                        p.width(40 + 20);
-                        p.height(40 + 20);
+                        p.animate({
+                            left: -20 * (8 - j) - 10,
+                            top: -10,
+                            width: 40 + 20,
+                            height: 40 + 20
+                        });
                     }
                     else {
                         p.css('left', 0);
