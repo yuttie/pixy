@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .cell {
+            width: 40px;
+            height: 40px;
+        }
+        .panel {
+            position: relative;
+            background-color: white;
+            border: 1px solid black;
+            width: 40px;
+            height: 40px;
+        }
+        .black {
+            background-color: black;
+        }
+        .white {
+            background-color: white;
+        }
+        #board {
+            border-collapse: collapse;
+            margin: auto;
+        }
+        #board td {
+            font-size: 32px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        #board td button {
+            width: 8ex;
+            height: 32px;
+        }
+        .mask {
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGklEQVQIW2NkYGD4D8SMMBrEAAG4IFwGpwoABMEIA4h1UJkAAAAASUVORK5CYII=) repeat;
+            background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHklEQVQIW2NkYGD4D8QgwAgjMASgCiAqwcqgACwAAIrDBAOqGrGNAAAAAElFTkSuQmCC) repeat;
+            z-index: 10;
+            position: absolute;
+            width: 0;
+            height: 0;
+        }
+    </style>
+    <script src="jquery.min.js"></script>
+    <script>
+        var pxs = [];
+        for (i = 0; i < 16; ++i) {
+            var r = [];
+            for (j = 0; j < 16; ++j) {
+                r.push(undefined);
+            }
+            pxs.push(r);
+        }
+
+        function change_panel_color() {
+            if ($(this).hasClass("black") || $(this).hasClass("white")) {
+                $(this).toggleClass("black white");
+            }
+            else {
+                $(this).text("");
+                $(this).addClass("black");
+            }
+        }
+
+        $(function() {
+            // create the board
+            for (i = 0; i < 16; ++i) {
+                var html = '<tr id="row' + (i + 1) + '">';
+                html += '<td><button id="sel' + (i + 1) + '" class="row-button">' + (i + 1) + '行目</button></td>'
+                for (j = 0; j < 16; ++j) {
+                    html += '<td id="cell' + (i + 1) + '-' + (j + 1) + '" class="cell"><div id="panel' + (i + 1) + '-' + (j + 1) + '" class="panel">?</div></td>';
+                }
+                html += '</tr>'
+                $('#board').append(html);
+            }
+            // events
+            $(".row-button").each(function() {
+                $(this).click(function() {
+                    // mask
+                    var tl_cell = $('#cell1-1');
+                    var tr_cell = $('#cell1-16');
+                    var bl_cell = $('#cell16-1');
+                    var br_cell = $('#cell16-16');
+
+                    var selected_row = parseInt($(this).attr("id").slice(3));
+                    var sl_cell = $('#cell' + selected_row + '-1');
+                    var sr_cell = $('#cell' + selected_row + '-16');
+
+                    var x1 = tl_cell.position().left;
+                    var x2 = tr_cell.position().left + tr_cell.outerWidth();
+                    var width = x2 - x1;
+
+                    var y1 = tl_cell.position().top;
+                    var y2 = sl_cell.position().top;
+                    var height1 = y2 - y1;
+
+                    var y3 = sl_cell.position().top + sl_cell.outerHeight();
+                    var y4 = bl_cell.position().top + bl_cell.outerHeight();
+                    var height2 = y4 - y3;
+
+                    $('#upper-mask').offset({left: x1, top: y1});
+                    $('#upper-mask').width(width);
+                    $('#upper-mask').height(height1);
+
+                    $('#lower-mask').offset({left: x1, top: y3});
+                    $('#lower-mask').width(width);
+                    $('#lower-mask').height(height2);
+                });
+            });
+
+            $(".panel").each(function() {
+                $(this).click(change_panel_color);
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="upper-mask" class="mask"></div>
+    <div id="lower-mask" class="mask"></div>
+    <table id="board">
+    </table>
+</body>
+</html>
