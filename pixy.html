@@ -62,7 +62,7 @@
     <script src="jquery.min.js"></script>
     <script>
         var current_row = 0;
-        function change_panel_color() {
+        function toggle_panel_color() {
             if ($(this).hasClass("black") || $(this).hasClass("white")) {
                 $(this).toggleClass("black white");
             }
@@ -155,7 +155,7 @@
             });
 
             $(".panel").each(function() {
-                $(this).mousedown(change_panel_color);
+                $(this).mousedown(toggle_panel_color);
             });
         });
     </script>
