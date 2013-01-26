@@ -19,6 +19,17 @@
             width: 40px;
             height: 40px;
         }
+        .panel-text {
+            font-size: 32px;
+            /* horizontal centering */
+            width: 100%;
+            text-align: center;
+            /* vertical centering */
+            position: absolute;
+            top: 50%;
+            line-height: 1em;
+            margin-top: -0.5em;
+        }
         .black {
             background-color: black;
         }
@@ -28,11 +39,6 @@
         #board {
             border-collapse: collapse;
             margin: auto;
-        }
-        #board td {
-            font-size: 32px;
-            text-align: center;
-            vertical-align: middle;
         }
         #board td button {
             width: 8ex;
@@ -74,7 +80,7 @@
                 var html = '<tr id="row' + (i + 1) + '">';
                 html += '<td><button id="sel' + (i + 1) + '" class="row-button">' + (i + 1) + '行目</button></td>'
                 for (j = 0; j < 16; ++j) {
-                    html += '<td id="cell' + (i + 1) + '-' + (j + 1) + '" class="cell"><div id="panel' + (i + 1) + '-' + (j + 1) + '" class="panel">?</div></td>';
+                    html += '<td id="cell' + (i + 1) + '-' + (j + 1) + '"><div class="cell"><div id="panel' + (i + 1) + '-' + (j + 1) + '" class="panel"><div class="panel-text">?</div></div></div></td>';
                 }
                 html += '</tr>'
                 $('#board').append(html);
@@ -111,6 +117,27 @@
                     $('#lower-mask').offset({left: x1, top: y3});
                     $('#lower-mask').width(width);
                     $('#lower-mask').height(height2);
+
+                    // magnify the selected row
+                    for (var i = 1; i <= 16; ++i) {
+                        for (var j = 1; j <= 16; ++j) {
+                            var p = $('#panel' + i + '-' + j);
+                            if (i == selected_row) {
+                                p.css('left', -20 * (8 - j) - 10);
+                                p.css('top', -10);
+                                p.css('z-index', 20);
+                                p.width(40 + 20);
+                                p.height(40 + 20);
+                            }
+                            else {
+                                p.css('left', 0);
+                                p.css('top', 0);
+                                p.css('z-index', 0);
+                                p.width(40);
+                                p.height(40);
+                            }
+                        }
+                    }
                 });
             });
 
