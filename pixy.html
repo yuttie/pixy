@@ -94,13 +94,19 @@
             var y4 = bl_cell.position().top + bl_cell.outerHeight();
             var height2 = y4 - y3;
 
-            $('#upper-mask').offset({left: x1, top: y1});
-            $('#upper-mask').width(width);
-            $('#upper-mask').height(height1);
+            $('#upper-mask').animate({
+                left: x1,
+                top: y1,
+                width: width,
+                height: height1
+            });
 
-            $('#lower-mask').offset({left: x1, top: y3});
-            $('#lower-mask').width(width);
-            $('#lower-mask').height(height2);
+            $('#lower-mask').animate({
+                left: x1,
+                top: y3,
+                width: width,
+                height: height2
+            });
 
             // magnify the selected row
             for (var i = 1; i <= 16; ++i) {
