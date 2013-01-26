@@ -72,10 +72,10 @@
             }
         }
 
-        function on_row_button_activated() {
+        function move_focus(row_from, row_to) {
             // un-magnify the current row
             for (var j = 1; j <= 16; ++j) {
-                var p = $('#panel' + current_row + '-' + j);
+                var p = $('#panel' + row_from + '-' + j);
                 p.delay(0).animate({
                     left: 0,
                     top: 0,
@@ -85,17 +85,14 @@
                 }, 200);
             }
 
-            // change the current row
-            current_row = parseInt($(this).attr("id").slice(3));
-
             // mask
             var tl_cell = $('#cell1-1');
             var tr_cell = $('#cell1-16');
             var bl_cell = $('#cell16-1');
             var br_cell = $('#cell16-16');
 
-            var sl_cell = $('#cell' + current_row + '-1');
-            var sr_cell = $('#cell' + current_row + '-16');
+            var sl_cell = $('#cell' + row_to + '-1');
+            var sr_cell = $('#cell' + row_to + '-16');
 
             var x1 = tl_cell.position().left;
             var x2 = tr_cell.position().left + tr_cell.outerWidth();
@@ -125,7 +122,7 @@
 
             // magnify the current row
             for (var j = 1; j <= 16; ++j) {
-                var p = $('#panel' + current_row + '-' + j);
+                var p = $('#panel' + row_to + '-' + j);
                 p.delay(400).animate({
                     "z-index": 20
                 }, 0);
@@ -151,7 +148,13 @@
             }
             // events
             $(".row-button").each(function() {
-                $(this).click(on_row_button_activated);
+                $(this).click(function() {
+                    // change the current row
+                    var from = current_row
+                    var to = parseInt($(this).attr("id").slice(3));
+                    move_focus(from, to);
+                    current_row = to;
+                });
             });
 
             $(".panel").each(function() {
