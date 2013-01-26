@@ -76,11 +76,11 @@
 
         $(function() {
             // create the board
-            for (i = 0; i < 16; ++i) {
-                var html = '<tr id="row' + (i + 1) + '">';
-                html += '<td><button id="sel' + (i + 1) + '" class="row-button">' + (i + 1) + '行目</button></td>'
-                for (j = 0; j < 16; ++j) {
-                    html += '<td id="cell' + (i + 1) + '-' + (j + 1) + '"><div class="cell"><div id="panel' + (i + 1) + '-' + (j + 1) + '" class="panel"><div class="panel-text">?</div></div></div></td>';
+            for (i = 1; i <= 16; ++i) {
+                var html = '<tr id="row' + i + '">';
+                html += '<td><button id="sel' + i + '" class="row-button">' + i + '行目</button></td>'
+                for (j = 1; j <= 16; ++j) {
+                    html += '<td id="cell' + i + '-' + j + '"><div class="cell"><div id="panel' + i + '-' + j + '" class="panel"><div class="panel-text">?</div></div></div></td>';
                 }
                 html += '</tr>'
                 $('#board').append(html);
