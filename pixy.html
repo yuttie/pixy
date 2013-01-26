@@ -61,15 +61,6 @@
     </style>
     <script src="jquery.min.js"></script>
     <script>
-        var pxs = [];
-        for (i = 0; i < 16; ++i) {
-            var r = [];
-            for (j = 0; j < 16; ++j) {
-                r.push(undefined);
-            }
-            pxs.push(r);
-        }
-
         function change_panel_color() {
             if ($(this).hasClass("black") || $(this).hasClass("white")) {
                 $(this).toggleClass("black white");
