@@ -94,17 +94,17 @@
             var y4 = bl_cell.position().top + bl_cell.outerHeight();
             var height2 = y4 - y3;
 
+            $('#upper-mask').css('left', x1);
+            $('#upper-mask').css('width', width);
+            $('#upper-mask').css('top', y1);
             $('#upper-mask').animate({
-                left: x1,
-                top: y1,
-                width: width,
                 height: height1
             });
 
+            $('#lower-mask').css('left', x1);
+            $('#lower-mask').css('width', width);
             $('#lower-mask').animate({
-                left: x1,
                 top: y3,
-                width: width,
                 height: height2
             });
 
