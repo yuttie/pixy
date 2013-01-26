@@ -74,19 +74,28 @@
         }
 
         function unmagnify_row(i, duration, delay) {
+            duration /= 1000;
+            delay /= 1000;
             for (var j = 1; j <= 16; ++j) {
                 var p = $('#panel' + i + '-' + j);
-                p.delay(delay).animate({
-                    left: 0,
-                    top: 0,
-                    width: "-=20px",
-                    height: "-=20px",
-                    "z-index": 0
-                }, duration);
+                p.css({
+                    'transition-property': 'z-index, left, top, width, height',
+                    'transition-duration': '0.001s, ' + duration + 's, ' + duration + 's, ' + duration + 's, ' + duration + 's',
+                    'transition-delay': delay + 's'
+                });
+                p.css({
+                    'z-index': 0,
+                    'left': 0,
+                    'top': 0,
+                    'width': 40,
+                    'height': 40
+                });
             }
         }
 
         function move_focus(i, duration, delay) {
+            duration /= 1000;
+            delay /= 1000;
             var tl_cell = $('#cell1-1');
             var tr_cell = $('#cell1-16');
             var bl_cell = $('#cell16-1');
@@ -107,33 +116,50 @@
             var y4 = bl_cell.position().top + bl_cell.outerHeight();
             var height2 = y4 - y3;
 
-            $('#upper-mask').css('left', x1);
-            $('#upper-mask').css('width', width);
-            $('#upper-mask').css('top', y1);
-            $('#upper-mask').delay(delay).animate({
+            var upper_mask = $('#upper-mask');
+            upper_mask.css({
+                'left': x1,
+                'width': width,
+                'top': y1,
+                'transition-property': 'height',
+                'transition-duration': duration + 's',
+                'transition-delay': delay + 's',
+            });
+            upper_mask.css({
                 height: height1
-            }, duration);
+            });
 
-            $('#lower-mask').css('left', x1);
-            $('#lower-mask').css('width', width);
-            $('#lower-mask').delay(delay).animate({
+            var lower_mask = $('#lower-mask');
+            lower_mask.css({
+                'left': x1,
+                'width': width,
+                'transition-property': 'top, height',
+                'transition-duration': duration + 's',
+                'transition-delay': delay + 's'
+            });
+            lower_mask.css({
                 top: y3,
                 height: height2
-            }, duration);
+            });
         }
 
         function magnify_row(i, duration, delay) {
+            duration /= 1000;
+            delay /= 1000;
             for (var j = 1; j <= 16; ++j) {
                 var p = $('#panel' + i + '-' + j);
-                p.delay(delay).animate({
-                    "z-index": 20
-                }, 0);
-                p.animate({
-                    left: -20 * (8 - j) - 10,
-                    top: -10,
-                    width: "+=20px",
-                    height: "+=20px"
-                }, duration);
+                p.css({
+                    'transition-property': 'z-index, left, top, width, height',
+                    'transition-duration': '0.001s, ' + duration + 's, ' + duration + 's, ' + duration + 's, ' + duration + 's',
+                    'transition-delay': delay + 's'
+                });
+                p.css({
+                    'z-index': 20,
+                    'left': -20 * (8 - j) - 10,
+                    'top': -10,
+                    'width': 40 + 20,
+                    'height': 40 + 20
+                });
             }
         }
 
