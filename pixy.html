@@ -72,27 +72,27 @@
             }
         }
 
-        function move_focus(row_from, row_to) {
-            // un-magnify the current row
+        function unmagnify_row(i, duration, delay) {
             for (var j = 1; j <= 16; ++j) {
-                var p = $('#panel' + row_from + '-' + j);
-                p.delay(0).animate({
+                var p = $('#panel' + i + '-' + j);
+                p.delay(delay).animate({
                     left: 0,
                     top: 0,
                     width: "-=20px",
                     height: "-=20px",
                     "z-index": 0
-                }, 200);
+                }, duration);
             }
+        }
 
-            // mask
+        function move_focus(i, duration, delay) {
             var tl_cell = $('#cell1-1');
             var tr_cell = $('#cell1-16');
             var bl_cell = $('#cell16-1');
             var br_cell = $('#cell16-16');
 
-            var sl_cell = $('#cell' + row_to + '-1');
-            var sr_cell = $('#cell' + row_to + '-16');
+            var sl_cell = $('#cell' + i + '-1');
+            var sr_cell = $('#cell' + i + '-16');
 
             var x1 = tl_cell.position().left;
             var x2 = tr_cell.position().left + tr_cell.outerWidth();
@@ -109,21 +109,22 @@
             $('#upper-mask').css('left', x1);
             $('#upper-mask').css('width', width);
             $('#upper-mask').css('top', y1);
-            $('#upper-mask').delay(200).animate({
+            $('#upper-mask').delay(delay).animate({
                 height: height1
-            }, 200);
+            }, duration);
 
             $('#lower-mask').css('left', x1);
             $('#lower-mask').css('width', width);
-            $('#lower-mask').delay(200).animate({
+            $('#lower-mask').delay(delay).animate({
                 top: y3,
                 height: height2
-            }, 200);
+            }, duration);
+        }
 
-            // magnify the current row
+        function magnify_row(i, duration, delay) {
             for (var j = 1; j <= 16; ++j) {
-                var p = $('#panel' + row_to + '-' + j);
-                p.delay(400).animate({
+                var p = $('#panel' + i + '-' + j);
+                p.delay(delay).animate({
                     "z-index": 20
                 }, 0);
                 p.animate({
@@ -131,7 +132,7 @@
                     top: -10,
                     width: "+=20px",
                     height: "+=20px"
-                });
+                }, duration);
             }
         }
 
@@ -149,11 +150,10 @@
             // events
             $(".row-button").each(function() {
                 $(this).click(function() {
-                    // change the current row
-                    var from = current_row
-                    var to = parseInt($(this).attr("id").slice(3));
-                    move_focus(from, to);
-                    current_row = to;
+                    unmagnify_row(current_row, 200, 0)
+                    current_row = parseInt($(this).attr("id").slice(3));
+                    move_focus(current_row, 200, 200);
+                    magnify_row(current_row, 200, 400);
                 });
             });
 
