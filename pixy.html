@@ -61,6 +61,7 @@
         }
     </style>
     <script src="jquery.min.js"></script>
+    <script src="jquery.animate-enhanced.min.js"></script>
     <script>
         var current_row = 0;
         function toggle_panel_color() {
@@ -127,7 +128,7 @@
                 var p = $('#panel' + i + '-' + j);
                 p.delay(delay).animate({
                     "z-index": 20
-                }, 0);
+                }, 1);
                 p.animate({
                     left: -20 * (8 - j) - 10,
                     top: -10,
