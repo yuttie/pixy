@@ -74,6 +74,59 @@
             }
         }
 
+        function on_row_button_activated() {
+            // mask
+            var tl_cell = $('#cell1-1');
+            var tr_cell = $('#cell1-16');
+            var bl_cell = $('#cell16-1');
+            var br_cell = $('#cell16-16');
+
+            var selected_row = parseInt($(this).attr("id").slice(3));
+            var sl_cell = $('#cell' + selected_row + '-1');
+            var sr_cell = $('#cell' + selected_row + '-16');
+
+            var x1 = tl_cell.position().left;
+            var x2 = tr_cell.position().left + tr_cell.outerWidth();
+            var width = x2 - x1;
+
+            var y1 = tl_cell.position().top;
+            var y2 = sl_cell.position().top;
+            var height1 = y2 - y1;
+
+            var y3 = sl_cell.position().top + sl_cell.outerHeight();
+            var y4 = bl_cell.position().top + bl_cell.outerHeight();
+            var height2 = y4 - y3;
+
+            $('#upper-mask').offset({left: x1, top: y1});
+            $('#upper-mask').width(width);
+            $('#upper-mask').height(height1);
+
+            $('#lower-mask').offset({left: x1, top: y3});
+            $('#lower-mask').width(width);
+            $('#lower-mask').height(height2);
+
+            // magnify the selected row
+            for (var i = 1; i <= 16; ++i) {
+                for (var j = 1; j <= 16; ++j) {
+                    var p = $('#panel' + i + '-' + j);
+                    if (i == selected_row) {
+                        p.css('left', -20 * (8 - j) - 10);
+                        p.css('top', -10);
+                        p.css('z-index', 20);
+                        p.width(40 + 20);
+                        p.height(40 + 20);
+                    }
+                    else {
+                        p.css('left', 0);
+                        p.css('top', 0);
+                        p.css('z-index', 0);
+                        p.width(40);
+                        p.height(40);
+                    }
+                }
+            }
+        }
+
         $(function() {
             // create the board
             for (i = 1; i <= 16; ++i) {
@@ -87,58 +140,7 @@
             }
             // events
             $(".row-button").each(function() {
-                $(this).click(function() {
-                    // mask
-                    var tl_cell = $('#cell1-1');
-                    var tr_cell = $('#cell1-16');
-                    var bl_cell = $('#cell16-1');
-                    var br_cell = $('#cell16-16');
-
-                    var selected_row = parseInt($(this).attr("id").slice(3));
-                    var sl_cell = $('#cell' + selected_row + '-1');
-                    var sr_cell = $('#cell' + selected_row + '-16');
-
-                    var x1 = tl_cell.position().left;
-                    var x2 = tr_cell.position().left + tr_cell.outerWidth();
-                    var width = x2 - x1;
-
-                    var y1 = tl_cell.position().top;
-                    var y2 = sl_cell.position().top;
-                    var height1 = y2 - y1;
-
-                    var y3 = sl_cell.position().top + sl_cell.outerHeight();
-                    var y4 = bl_cell.position().top + bl_cell.outerHeight();
-                    var height2 = y4 - y3;
-
-                    $('#upper-mask').offset({left: x1, top: y1});
-                    $('#upper-mask').width(width);
-                    $('#upper-mask').height(height1);
-
-                    $('#lower-mask').offset({left: x1, top: y3});
-                    $('#lower-mask').width(width);
-                    $('#lower-mask').height(height2);
-
-                    // magnify the selected row
-                    for (var i = 1; i <= 16; ++i) {
-                        for (var j = 1; j <= 16; ++j) {
-                            var p = $('#panel' + i + '-' + j);
-                            if (i == selected_row) {
-                                p.css('left', -20 * (8 - j) - 10);
-                                p.css('top', -10);
-                                p.css('z-index', 20);
-                                p.width(40 + 20);
-                                p.height(40 + 20);
-                            }
-                            else {
-                                p.css('left', 0);
-                                p.css('top', 0);
-                                p.css('z-index', 0);
-                                p.width(40);
-                                p.height(40);
-                            }
-                        }
-                    }
-                });
+                $(this).click(on_row_button_activated);
             });
 
             $(".panel").each(function() {
