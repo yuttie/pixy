@@ -193,7 +193,7 @@
             // events
             if (is_touch_device()) {
                 $(".row-button").each(function() {
-                    $(this).on('touchstart', function() {
+                    $(this).on('click', function() {
                         unmagnify_row(current_row, 200, 0)
                         current_row = parseInt($(this).attr("id").slice(3));
                         move_focus(current_row, 200, 200);
