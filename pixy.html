@@ -55,6 +55,9 @@
             width: 8ex;
             height: 32px;
         }
+        #board tr {
+            -webkit-perspective: 100;
+        }
         .mask {
             background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGklEQVQIW2NkYGD4D8SMMBrEAAG4IFwGpwoABMEIA4h1UJkAAAAASUVORK5CYII=) repeat;
             background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHklEQVQIW2NkYGD4D8QgwAgjMASgCiAqwcqgACwAAIrDBAOqGrGNAAAAAElFTkSuQmCC) repeat;
@@ -89,17 +92,14 @@
             for (var j = 1; j <= 16; ++j) {
                 var p = $('#panel' + i + '-' + j);
                 p.css({
-                    'transition-property': 'z-index, left, top, width, height',
-                    'transition-duration': '0.001s, ' + duration + 's, ' + duration + 's, ' + duration + 's, ' + duration + 's',
+                    'transition-property': 'z-index, transform',
+                    'transition-duration': '0.001s, ' + duration + 's',
                     'transition-timing-function': 'ease',
                     'transition-delay': delay + 's'
                 });
                 p.css({
                     'z-index': 0,
-                    'left': 0,
-                    'top': 0,
-                    'width': 40,
-                    'height': 40
+                    '-webkit-transform': 'translateZ(0px)',
                 });
             }
         }
@@ -160,17 +160,14 @@
             for (var j = 1; j <= 16; ++j) {
                 var p = $('#panel' + i + '-' + j);
                 p.css({
-                    'transition-property': 'z-index, left, top, width, height',
-                    'transition-duration': '0.001s, ' + duration + 's, ' + duration + 's, ' + duration + 's, ' + duration + 's',
+                    'transition-property': 'z-index, transform',
+                    'transition-duration': '0.001s, ' + duration + 's',
                     'transition-timing-function': 'ease',
                     'transition-delay': delay + 's'
                 });
                 p.css({
                     'z-index': 20,
-                    'left': -20 * (8 - j) - 10,
-                    'top': -10,
-                    'width': 40 + 20,
-                    'height': 40 + 20
+                    '-webkit-transform': 'translateZ(40px)',
                 });
             }
         }
