@@ -195,6 +195,9 @@
                 $(document).on('touchmove', function(e) {
                     e.preventDefault();
                 });
+                $('.panel-text').on('touchstart', function(e) {
+                    e.preventDefault();
+                });
 
                 $(".row-button").each(function() {
                     $(this).on('click', function() {
