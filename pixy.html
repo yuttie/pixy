@@ -19,12 +19,13 @@
             width: 40px;
             height: 40px;
         }
+        /* Panels are 40 pixels by 40 pixels including its borders. */
         .panel {
             position: relative;
             background-color: white;
             border: 1px solid black;
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
         }
         .panel-text {
             font-size: 32px;
@@ -43,6 +44,15 @@
         .white {
             background-color: white;
         }
+        #view {
+            overflow: hidden;
+            width: 100%;
+            height: 640px;  /* total height of 16 panels with 40px height */
+            /* vertically centered */
+            position: absolute;
+            top: 50%;
+            margin-top: -320px;
+        }
         #board {
             border-collapse: collapse;
             margin: auto;
@@ -57,7 +67,7 @@
             z-index: 10;
             position: absolute;
             width: 0;
-            height: 0;
+            height: 100%;
         }
     </style>
     <script src="jquery.min.js"></script>
@@ -102,50 +112,39 @@
             delay /= 1000;
             var tl_cell = $('#cell1-1');
             var tr_cell = $('#cell1-16');
-            var bl_cell = $('#cell16-1');
-            var br_cell = $('#cell16-16');
-
             var sl_cell = $('#cell' + i + '-1');
-            var sr_cell = $('#cell' + i + '-16');
 
             var x1 = tl_cell.position().left;
             var x2 = tr_cell.position().left + tr_cell.outerWidth();
             var width = x2 - x1;
 
-            var y1 = tl_cell.position().top;
-            var y2 = sl_cell.position().top;
-            var height1 = y2 - y1;
-
-            var y3 = sl_cell.position().top + sl_cell.outerHeight();
-            var y4 = bl_cell.position().top + bl_cell.outerHeight();
-            var height2 = y4 - y3;
-
             var upper_mask = $('#upper-mask');
+            var bottom_upper_mask = sl_cell.position().top;
+            var top_upper_mask = bottom_upper_mask - upper_mask.height();
             upper_mask.css({
                 'left': x1,
                 'width': width,
-                'top': y1,
-                'transition-property': 'height',
+                'transition-property': 'transform',
                 'transition-duration': duration + 's',
                 'transition-timing-function': 'linear',
                 'transition-delay': delay + 's',
             });
             upper_mask.css({
-                height: height1
+                'transform': 'translate3d(0px, ' + top_upper_mask + 'px, 0px)'
             });
 
             var lower_mask = $('#lower-mask');
+            var top_lower_mask = sl_cell.position().top + sl_cell.outerHeight();
             lower_mask.css({
                 'left': x1,
                 'width': width,
-                'transition-property': 'top, height',
+                'transition-property': 'transform',
                 'transition-duration': duration + 's',
                 'transition-timing-function': 'linear',
                 'transition-delay': delay + 's'
             });
             lower_mask.css({
-                top: y3,
-                height: height2
+                transform: 'translate3d(0px, ' + top_lower_mask + 'px, 0px)',
             });
         }
 
@@ -195,9 +194,11 @@
     </script>
 </head>
 <body>
-    <div id="upper-mask" class="mask"></div>
-    <div id="lower-mask" class="mask"></div>
-    <table id="board">
-    </table>
+    <div id="view">
+        <div id="upper-mask" class="mask"></div>
+        <div id="lower-mask" class="mask"></div>
+        <table id="board">
+        </table>
+    </div>
 </body>
 </html>
