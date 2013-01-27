@@ -87,7 +87,7 @@
                 p.css({
                     'transition-property': 'z-index, left, top, width, height',
                     'transition-duration': '0.001s, ' + duration + 's, ' + duration + 's, ' + duration + 's, ' + duration + 's',
-                    'transition-timing-function': 'ease',
+                    'transition-timing-function': 'linear',
                     'transition-delay': delay + 's'
                 });
                 p.css({
@@ -130,6 +130,7 @@
                 'top': y1,
                 'transition-property': 'height',
                 'transition-duration': duration + 's',
+                'transition-timing-function': 'linear',
                 'transition-delay': delay + 's',
             });
             upper_mask.css({
@@ -142,6 +143,7 @@
                 'width': width,
                 'transition-property': 'top, height',
                 'transition-duration': duration + 's',
+                'transition-timing-function': 'linear',
                 'transition-delay': delay + 's'
             });
             lower_mask.css({
@@ -158,7 +160,7 @@
                 p.css({
                     'transition-property': 'z-index, left, top, width, height',
                     'transition-duration': '0.001s, ' + duration + 's, ' + duration + 's, ' + duration + 's, ' + duration + 's',
-                    'transition-timing-function': 'ease',
+                    'transition-timing-function': 'linear',
                     'transition-delay': delay + 's'
                 });
                 p.css({
