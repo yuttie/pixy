@@ -90,8 +90,15 @@
                 $(this).toggleClass("black white");
             }
             else {
-                $(this).text("");
                 $(this).addClass("white");
+                var panel_text = $(this).find('.panel-text');
+                panel_text.css({
+                    'transition-property': 'color',
+                    'transition-duration': '0.1s',
+                    'transition-timing-function': 'linear',
+                    'transition-delay': '0s',
+                });
+                panel_text.css('color', 'rgba(0, 0, 0, 0)');
             }
         }
 
