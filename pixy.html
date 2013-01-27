@@ -62,6 +62,12 @@
     </style>
     <script src="jquery.min.js"></script>
     <script>
+        // http://stackoverflow.com/questions/4817029/whats-the-best-way-to-detect-a-touch-screen-device-using-javascript
+        function is_touch_device() {
+            return !!('ontouchstart' in window) // works on most browsers
+                || !!('onmsgesturechange' in window); // works on ie10
+        };
+
         var current_row = 0;
         function toggle_panel_color() {
             $(this).css({
@@ -185,18 +191,34 @@
                 $('#board').append(html);
             }
             // events
-            $(".row-button").each(function() {
-                $(this).click(function() {
-                    unmagnify_row(current_row, 200, 0)
-                    current_row = parseInt($(this).attr("id").slice(3));
-                    move_focus(current_row, 200, 200);
-                    magnify_row(current_row, 200, 400);
+            if (is_touch_device()) {
+                $(".row-button").each(function() {
+                    $(this).on('touchstart', function() {
+                        unmagnify_row(current_row, 200, 0)
+                        current_row = parseInt($(this).attr("id").slice(3));
+                        move_focus(current_row, 200, 200);
+                        magnify_row(current_row, 200, 400);
+                    });
                 });
-            });
 
-            $(".panel").each(function() {
-                $(this).mousedown(toggle_panel_color);
-            });
+                $(".panel").each(function() {
+                    $(this).on('touchstart', toggle_panel_color);
+                });
+            }
+            else {
+                $(".row-button").each(function() {
+                    $(this).on('click', function() {
+                        unmagnify_row(current_row, 200, 0)
+                        current_row = parseInt($(this).attr("id").slice(3));
+                        move_focus(current_row, 200, 200);
+                        magnify_row(current_row, 200, 400);
+                    });
+                });
+
+                $(".panel").each(function() {
+                    $(this).on('mousedown', toggle_panel_color);
+                });
+            }
         });
     </script>
 </head>
