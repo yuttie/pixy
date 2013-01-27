@@ -176,6 +176,33 @@
             }
         }
 
+        function initialize_masks() {
+            var tl_cell = $('#cell1-1');
+            var tr_cell = $('#cell1-16');
+            var bl_cell = $('#cell16-1');
+
+            var left = tl_cell.position().left;
+            var right = tr_cell.position().left + tr_cell.outerWidth();
+            var width = right - left;
+
+            var upper_mask = $('#upper-mask');
+            var bottom_upper_mask = tl_cell.position().top;
+            var top_upper_mask = bottom_upper_mask - upper_mask.height();
+            upper_mask.css({
+                'left': left,
+                'width': width,
+                'transform': 'translate3d(0px, ' + top_upper_mask + 'px, 0px)',
+            });
+
+            var lower_mask = $('#lower-mask');
+            var top_lower_mask = bl_cell.position().top + bl_cell.outerHeight();
+            lower_mask.css({
+                'left': left,
+                'width': width,
+                'transform': 'translate3d(0px, ' + top_lower_mask + 'px, 0px)',
+            });
+        }
+
         $(function() {
             // create the board
             for (i = 1; i <= 16; ++i) {
@@ -187,6 +214,10 @@
                 html += '</tr>'
                 $('#board').append(html);
             }
+
+            // masks
+            initialize_masks();
+
             // events
             if (is_touch_device()) {
                 // disable the overscroll effect on touch-capable environments.
