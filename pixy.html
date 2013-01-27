@@ -192,6 +192,13 @@
             }
             // events
             if (is_touch_device()) {
+                // disable the overscroll effect on touch-capable environments.
+                // http://www.html5rocks.com/en/mobile/touch/
+                // http://stackoverflow.com/questions/2890361/disable-scrolling-in-an-iphone-web-application
+                $(document).on('touchmove', function(e) {
+                    e.preventDefault();
+                });
+
                 $(".row-button").each(function() {
                     $(this).on('click', function() {
                         unmagnify_row(current_row, 200, 0)
