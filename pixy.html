@@ -85,16 +85,14 @@
             for (var j = 1; j <= 16; ++j) {
                 var p = $('#panel' + i + '-' + j);
                 p.css({
-                    'transition-property': 'z-index, transform, width, height',
+                    'transition-property': 'z-index, transform',
                     'transition-duration': '0.001s, ' + duration + 's, ' + duration + 's, ' + duration + 's',
                     'transition-timing-function': 'linear',
                     'transition-delay': delay + 's'
                 });
                 p.css({
                     'z-index': 0,
-                    'transform': 'translate3d(0px, 0px, 0px)',
-                    'width': 40,
-                    'height': 40
+                    'transform': 'translate3d(0px, 0px, 0px) scale3d(1, 1, 1)',
                 });
             }
         }
@@ -157,16 +155,14 @@
             for (var j = 1; j <= 16; ++j) {
                 var p = $('#panel' + i + '-' + j);
                 p.css({
-                    'transition-property': 'z-index, transform, width, height',
+                    'transition-property': 'z-index, transform',
                     'transition-duration': '0.001s, ' + duration + 's, ' + duration + 's, ' + duration + 's',
                     'transition-timing-function': 'linear',
                     'transition-delay': delay + 's'
                 });
                 p.css({
                     'z-index': 20,
-                    'transform': 'translate3d(' + (-20 * (8 - j) - 10) + 'px, -10px, 0px)',
-                    'width': 40 + 20,
-                    'height': 40 + 20
+                    'transform': 'translate3d(' + (-20 * (8 - j) - 10) + 'px, -10px, 0px) scale3d(' + ((40 + 20) / 40) + ', ' + ((40 + 20) / 40) + ', 1)',
                 });
             }
         }
