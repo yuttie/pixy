@@ -44,8 +44,7 @@
         .white {
             background-color: white;
         }
-        #view {
-            overflow: hidden;
+        #view, #mask-window {
             width: 100%;
             height: 640px;  /* total height of 16 panels with 40px height */
             /* vertically centered */
@@ -60,6 +59,9 @@
         #board td button {
             width: 8ex;
             height: 32px;
+        }
+        #mask-window {
+            overflow: hidden;
         }
         .mask {
             background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGklEQVQIW2NkYGD4D8SMMBrEAAG4IFwGpwoABMEIA4h1UJkAAAAASUVORK5CYII=) repeat;
@@ -125,19 +127,20 @@
             delay /= 1000;
             var tl_cell = $('#cell1-1');
             var tr_cell = $('#cell1-16');
+            var bl_cell = $('#cell16-1');
             var sl_cell = $('#cell' + i + '-1');
 
-            var x1 = tl_cell.position().left;
-            var x2 = tr_cell.position().left + tr_cell.outerWidth();
-            var width = x2 - x1;
+            var top = tl_cell.position().top;
+            var bottom = bl_cell.position().top + bl_cell.outerHeight();
+            var left = tl_cell.position().left;
+            var right = tr_cell.position().left + tr_cell.outerWidth();
+            var width = right - left;
+            var height = bottom - top;
+
+            var unmasked_top = sl_cell.position().top;
+            var unmasked_bottom = unmasked_top + sl_cell.outerHeight();
 
             var upper_mask = $('#upper-mask');
-            var bottom_upper_mask = sl_cell.position().top;
-            var top_upper_mask = bottom_upper_mask - upper_mask.height();
-            upper_mask.css({
-                'left': x1,
-                'width': width,
-            });
             upper_mask.css({
                 'transition-property': 'transform',
                 'transition-duration': duration + 's',
@@ -145,15 +148,10 @@
                 'transition-delay': delay + 's',
             });
             upper_mask.css({
-                'transform': 'translate3d(0px, ' + top_upper_mask + 'px, 0px)'
+                'transform': 'translate3d(0px, ' + ((unmasked_top - top) - upper_mask.outerHeight()) + 'px, 0px)'
             });
 
             var lower_mask = $('#lower-mask');
-            var top_lower_mask = sl_cell.position().top + sl_cell.outerHeight();
-            lower_mask.css({
-                'left': x1,
-                'width': width,
-            });
             lower_mask.css({
                 'transition-property': 'transform',
                 'transition-duration': duration + 's',
@@ -161,7 +159,7 @@
                 'transition-delay': delay + 's'
             });
             lower_mask.css({
-                'transform': 'translate3d(0px, ' + top_lower_mask + 'px, 0px)',
+                'transform': 'translate3d(0px, ' + (unmasked_bottom - top) + 'px, 0px)',
             });
         }
 
@@ -188,25 +186,27 @@
             var tr_cell = $('#cell1-16');
             var bl_cell = $('#cell16-1');
 
+            var top = tl_cell.position().top;
+            var bottom = bl_cell.position().top + bl_cell.outerHeight();
             var left = tl_cell.position().left;
             var right = tr_cell.position().left + tr_cell.outerWidth();
             var width = right - left;
+            var height = bottom - top;
 
             var upper_mask = $('#upper-mask');
-            var bottom_upper_mask = tl_cell.position().top;
-            var top_upper_mask = bottom_upper_mask - upper_mask.height();
             upper_mask.css({
+                'top': top,
                 'left': left,
                 'width': width,
-                'transform': 'translate3d(0px, ' + top_upper_mask + 'px, 0px)',
+                'transform': 'translate3d(0px, ' + (-height) + 'px, 0px)',
             });
 
             var lower_mask = $('#lower-mask');
-            var top_lower_mask = bl_cell.position().top + bl_cell.outerHeight();
             lower_mask.css({
+                'top': top,
                 'left': left,
                 'width': width,
-                'transform': 'translate3d(0px, ' + top_lower_mask + 'px, 0px)',
+                'transform': 'translate3d(0px, ' + height + 'px, 0px)',
             });
         }
 
@@ -268,9 +268,11 @@
     </script>
 </head>
 <body>
-    <div id="view">
+    <div id="mask-window">
         <div id="upper-mask" class="mask"></div>
         <div id="lower-mask" class="mask"></div>
+    </div>
+    <div id="view">
         <table id="board">
         </table>
     </div>
