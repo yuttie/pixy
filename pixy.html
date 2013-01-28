@@ -124,8 +124,8 @@
             for (var j = 1; j <= 16; ++j) {
                 var p = $('#panel' + i + '-' + j);
                 p.css({
-                    'transition-property': 'z-index, transform',
-                    'transition-duration': '0.001s, ' + duration + 's',
+                    'transition-property': 'z-index, transform, -webkit-transform, -moz-transform, -o-transform',
+                    'transition-duration': '0.001s, ' + duration + 's, ' + duration + 's, ' + duration + 's, ' + duration + 's',
                     'transition-timing-function': 'linear',
                     'transition-delay': delay + 's'
                 });
@@ -142,8 +142,8 @@
             for (var j = 1; j <= 16; ++j) {
                 var p = $('#panel' + i + '-' + j);
                 p.css({
-                    'transition-property': 'z-index, transform',
-                    'transition-duration': '0.001s, ' + duration + 's',
+                    'transition-property': 'z-index, transform, -webkit-transform, -moz-transform, -o-transform',
+                    'transition-duration': '0.001s, ' + duration + 's, ' + duration + 's, ' + duration + 's, ' + duration + 's',
                     'transition-timing-function': 'linear',
                     'transition-delay': delay + 's'
                 });
@@ -166,8 +166,8 @@
             var unmasked_bottom = unmasked_top + sl_cell.outerHeight();
 
             var transition_props = {
-                'transition-property': 'transform',
-                'transition-duration': duration + 's',
+                'transition-property': 'transform, -webkit-transform, -moz-transform, -o-transform',
+                'transition-duration': duration + 's, ' + duration + 's, ' + duration + 's, ' + duration + 's',
                 'transition-timing-function': 'linear',
                 'transition-delay': delay + 's',
             };
