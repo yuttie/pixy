@@ -198,10 +198,10 @@
         }
 
         function select_row(i) {
-            unmagnify_row(current_row, 200, 0)
+            unmagnify_row(current_row, 400, 0)
             current_row = i;
-            move_focus(current_row, 200, 200);
-            magnify_row(current_row, 200, 400);
+            move_focus(current_row, 400, 400);
+            magnify_row(current_row, 400, 800);
         }
 
         $(function() {
@@ -222,8 +222,8 @@
 
             // initial focus
             current_row = 1;
-            move_focus(current_row, 200, 200);
-            magnify_row(current_row, 200, 400);
+            move_focus(current_row, 400, 0);
+            magnify_row(current_row, 400, 400);
 
             // events
             $(window).resize(function() {
