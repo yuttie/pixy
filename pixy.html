@@ -179,24 +179,22 @@
             lower_mask.css('transform', 'translate3d(0px, ' + (unmasked_bottom - board.top) + 'px, 0px)');
         }
 
-        function initialize_masks() {
+        function adjust_mask_positions() {
             var board = get_board_dimension();
 
-            var upper_mask = $('#upper-mask');
-            upper_mask.css({
+            $('#upper-mask, #lower-mask').css({
+                'transition': 'none',
                 'top': board.top,
                 'left': board.left,
                 'width': board.width,
-                'transform': 'translate3d(0px, ' + (-board.height) + 'px, 0px)',
             });
+        }
 
-            var lower_mask = $('#lower-mask');
-            lower_mask.css({
-                'top': board.top,
-                'left': board.left,
-                'width': board.width,
-                'transform': 'translate3d(0px, ' + board.height + 'px, 0px)',
-            });
+        function initialize_mask_transformations() {
+            var board = get_board_dimension();
+
+            $('#upper-mask').css('transform', 'translate3d(0px, ' + (-board.height) + 'px, 0px)');
+            $('#lower-mask').css('transform', 'translate3d(0px, ' + board.height + 'px, 0px)');
         }
 
         function select_row(i) {
@@ -219,9 +217,13 @@
             }
 
             // masks
-            initialize_masks();
+            adjust_mask_positions();
+            initialize_mask_transformations();
 
             // events
+            $(window).resize(function() {
+                adjust_mask_positions();
+            });
             if (is_touch_device()) {
                 // disable the overscroll effect on touch-capable environments.
                 // http://www.html5rocks.com/en/mobile/touch/
