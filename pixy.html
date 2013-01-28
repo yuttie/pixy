@@ -220,6 +220,11 @@
             adjust_mask_positions();
             initialize_mask_transformations();
 
+            // initial focus
+            current_row = 1;
+            move_focus(current_row, 200, 200);
+            magnify_row(current_row, 200, 400);
+
             // events
             $(window).resize(function() {
                 adjust_mask_positions();
