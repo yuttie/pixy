@@ -63,6 +63,15 @@
         #mask-window {
             overflow: hidden;
         }
+        #prev-button, #next-button {
+            font-size: 32px;
+            font-weight: bold;
+            position: absolute;
+            width: 3em;
+            height: 2em;
+            line-height: 2em;
+            z-index: 20;
+        }
         .mask {
             background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGklEQVQIW2NkYGD4D8SMMBrEAAG4IFwGpwoABMEIA4h1UJkAAAAASUVORK5CYII=) repeat;
             background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHklEQVQIW2NkYGD4D8QgwAgjMASgCiAqwcqgACwAAIrDBAOqGrGNAAAAAElFTkSuQmCC) repeat;
@@ -179,6 +188,27 @@
             lower_mask.css('transform', 'translate3d(0px, ' + (unmasked_bottom - board.top) + 'px, 0px)');
         }
 
+        function move_cursor_button(i) {
+            var board = get_board_dimension();
+            var sl_cell = $('#cell' + i + '-1');
+
+            var unmasked_top = sl_cell.position().top;
+            var unmasked_bottom = unmasked_top + sl_cell.outerHeight();
+
+            var prev_button = $('#prev-button');
+            var next_button = $('#next-button');
+            prev_button.css({
+                'left': (board.left - prev_button.outerWidth()) + 'px',
+                'top': (unmasked_top - prev_button.outerHeight() - 10) + 'px',
+                'visibility': i == 1 ? 'hidden' : 'visible',
+            });
+            next_button.css({
+                'left': (board.left - next_button.outerWidth()) + 'px',
+                'top': (unmasked_bottom + 10) + 'px',
+                'visibility': i == 16 ? 'hidden' : 'visible',
+            });
+        }
+
         function adjust_mask_positions() {
             var board = get_board_dimension();
 
@@ -201,6 +231,7 @@
             unmagnify_row(current_row, 400, 0)
             current_row = i;
             move_focus(current_row, 400, 400);
+            move_cursor_button(current_row);
             magnify_row(current_row, 400, 800);
         }
 
@@ -208,7 +239,6 @@
             // create the board
             for (i = 1; i <= 16; ++i) {
                 var html = '<tr id="row' + i + '">';
-                html += '<td><button id="sel' + i + '" class="row-button">' + i + '行目</button></td>'
                 for (j = 1; j <= 16; ++j) {
                     html += '<td id="cell' + i + '-' + j + '"><div class="cell"><div id="panel' + i + '-' + j + '" class="panel"><div class="panel-text">?</div></div></div></td>';
                 }
@@ -223,6 +253,7 @@
             // initial focus
             current_row = 1;
             move_focus(current_row, 400, 0);
+            move_cursor_button(current_row, 400, 400);
             magnify_row(current_row, 400, 400);
 
             // events
@@ -240,10 +271,15 @@
                     e.preventDefault();
                 });
 
-                $(".row-button").each(function() {
-                    $(this).on('click', function() {
-                        select_row(parseInt($(this).attr("id").slice(3)));
-                    });
+                $('#prev-button').on('touchstart', function() {
+                    if (current_row > 1) {
+                        select_row(current_row - 1);
+                    }
+                });
+                $('#next-button').on('touchstart', function() {
+                    if (current_row < 16) {
+                        select_row(current_row + 1);
+                    }
                 });
 
                 $(".panel").each(function() {
@@ -251,10 +287,15 @@
                 });
             }
             else {
-                $(".row-button").each(function() {
-                    $(this).on('click', function() {
-                        select_row(parseInt($(this).attr("id").slice(3)));
-                    });
+                $('#prev-button').on('click', function() {
+                    if (current_row > 1) {
+                        select_row(current_row - 1);
+                    }
+                });
+                $('#next-button').on('click', function() {
+                    if (current_row < 16) {
+                        select_row(current_row + 1);
+                    }
                 });
 
                 $(".panel").each(function() {
@@ -272,6 +313,8 @@
     <div id="view">
         <table id="board">
         </table>
+        <button id="prev-button">↑</button>
+        <button id="next-button">↓</button>
     </div>
 </body>
 </html>
