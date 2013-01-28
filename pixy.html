@@ -80,6 +80,20 @@
                 || !!('onmsgesturechange' in window); // works on ie10
         };
 
+        function get_board_dimension() {
+            var tl_cell = $('#cell1-1');
+            var tr_cell = $('#cell1-16');
+            var bl_cell = $('#cell16-1');
+
+            var top = tl_cell.position().top;
+            var bottom = bl_cell.position().top + bl_cell.outerHeight();
+            var left = tl_cell.position().left;
+            var right = tr_cell.position().left + tr_cell.outerWidth();
+            var width = right - left;
+            var height = bottom - top;
+            return { 'top': top, 'bottom': bottom, 'left': left, 'right': right, 'width': width, 'height': height };
+        }
+
         var current_row = 0;
         function toggle_panel_color() {
             $(this).css({
@@ -122,47 +136,6 @@
             }
         }
 
-        function move_focus(i, duration, delay) {
-            duration /= 1000;
-            delay /= 1000;
-            var tl_cell = $('#cell1-1');
-            var tr_cell = $('#cell1-16');
-            var bl_cell = $('#cell16-1');
-            var sl_cell = $('#cell' + i + '-1');
-
-            var top = tl_cell.position().top;
-            var bottom = bl_cell.position().top + bl_cell.outerHeight();
-            var left = tl_cell.position().left;
-            var right = tr_cell.position().left + tr_cell.outerWidth();
-            var width = right - left;
-            var height = bottom - top;
-
-            var unmasked_top = sl_cell.position().top;
-            var unmasked_bottom = unmasked_top + sl_cell.outerHeight();
-
-            var upper_mask = $('#upper-mask');
-            upper_mask.css({
-                'transition-property': 'transform',
-                'transition-duration': duration + 's',
-                'transition-timing-function': 'linear',
-                'transition-delay': delay + 's',
-            });
-            upper_mask.css({
-                'transform': 'translate3d(0px, ' + ((unmasked_top - top) - upper_mask.outerHeight()) + 'px, 0px)'
-            });
-
-            var lower_mask = $('#lower-mask');
-            lower_mask.css({
-                'transition-property': 'transform',
-                'transition-duration': duration + 's',
-                'transition-timing-function': 'linear',
-                'transition-delay': delay + 's'
-            });
-            lower_mask.css({
-                'transform': 'translate3d(0px, ' + (unmasked_bottom - top) + 'px, 0px)',
-            });
-        }
-
         function magnify_row(i, duration, delay) {
             duration /= 1000;
             delay /= 1000;
@@ -176,38 +149,61 @@
                 });
                 p.css({
                     'z-index': 20,
-                    'transform': 'translate3d(' + (-20 * (8 - j) - 10) + 'px, -10px, 0px) scale3d(' + ((40 + 20) / 40) + ', ' + ((40 + 20) / 40) + ', 1)',
+                    'transform': 'translate3d(' + (-20 * (8 - j) - 10) + 'px, -10px, 0px) ' +
+                                 'scale3d(' + ((40 + 20) / 40) + ', ' + ((40 + 20) / 40) + ', 1)',
                 });
             }
         }
 
-        function initialize_masks() {
-            var tl_cell = $('#cell1-1');
-            var tr_cell = $('#cell1-16');
-            var bl_cell = $('#cell16-1');
+        function move_focus(i, duration, delay) {
+            duration /= 1000;
+            delay /= 1000;
 
-            var top = tl_cell.position().top;
-            var bottom = bl_cell.position().top + bl_cell.outerHeight();
-            var left = tl_cell.position().left;
-            var right = tr_cell.position().left + tr_cell.outerWidth();
-            var width = right - left;
-            var height = bottom - top;
+            var board = get_board_dimension();
+            var sl_cell = $('#cell' + i + '-1');
+
+            var unmasked_top = sl_cell.position().top;
+            var unmasked_bottom = unmasked_top + sl_cell.outerHeight();
+
+            var transition_props = {
+                'transition-property': 'transform',
+                'transition-duration': duration + 's',
+                'transition-timing-function': 'linear',
+                'transition-delay': delay + 's',
+            };
+            var upper_mask = $('#upper-mask');
+            var lower_mask = $('#lower-mask');
+            upper_mask.css(transition_props);
+            lower_mask.css(transition_props);
+            upper_mask.css('transform', 'translate3d(0px, ' + ((unmasked_top - board.top) - upper_mask.outerHeight()) + 'px, 0px)');
+            lower_mask.css('transform', 'translate3d(0px, ' + (unmasked_bottom - board.top) + 'px, 0px)');
+        }
+
+        function initialize_masks() {
+            var board = get_board_dimension();
 
             var upper_mask = $('#upper-mask');
             upper_mask.css({
-                'top': top,
-                'left': left,
-                'width': width,
-                'transform': 'translate3d(0px, ' + (-height) + 'px, 0px)',
+                'top': board.top,
+                'left': board.left,
+                'width': board.width,
+                'transform': 'translate3d(0px, ' + (-board.height) + 'px, 0px)',
             });
 
             var lower_mask = $('#lower-mask');
             lower_mask.css({
-                'top': top,
-                'left': left,
-                'width': width,
-                'transform': 'translate3d(0px, ' + height + 'px, 0px)',
+                'top': board.top,
+                'left': board.left,
+                'width': board.width,
+                'transform': 'translate3d(0px, ' + board.height + 'px, 0px)',
             });
+        }
+
+        function select_row(i) {
+            unmagnify_row(current_row, 200, 0)
+            current_row = i;
+            move_focus(current_row, 200, 200);
+            magnify_row(current_row, 200, 400);
         }
 
         $(function() {
@@ -239,10 +235,7 @@
 
                 $(".row-button").each(function() {
                     $(this).on('click', function() {
-                        unmagnify_row(current_row, 200, 0)
-                        current_row = parseInt($(this).attr("id").slice(3));
-                        move_focus(current_row, 200, 200);
-                        magnify_row(current_row, 200, 400);
+                        select_row(parseInt($(this).attr("id").slice(3));
                     });
                 });
 
@@ -253,10 +246,7 @@
             else {
                 $(".row-button").each(function() {
                     $(this).on('click', function() {
-                        unmagnify_row(current_row, 200, 0)
-                        current_row = parseInt($(this).attr("id").slice(3));
-                        move_focus(current_row, 200, 200);
-                        magnify_row(current_row, 200, 400);
+                        select_row(parseInt($(this).attr("id").slice(3));
                     });
                 });
 
