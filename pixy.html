@@ -104,19 +104,19 @@
         }
 
         var current_row = 0;
-        function toggle_panel_color() {
-            $(this).css({
+        function toggle_panel_color(panel) {
+            $(panel).css({
                 'transition-property': 'background-color',
                 'transition-duration': '0.1s',
                 'transition-timing-function': 'linear',
                 'transition-delay': '0s',
             });
-            if ($(this).hasClass("black") || $(this).hasClass("white")) {
-                $(this).toggleClass("black white");
+            if ($(panel).hasClass("black") || $(panel).hasClass("white")) {
+                $(panel).toggleClass("black white");
             }
             else {
-                $(this).addClass("white");
-                var panel_text = $(this).find('.panel-text');
+                $(panel).addClass("white");
+                var panel_text = $(panel).find('.panel-text');
                 panel_text.css({
                     'transition-property': 'color',
                     'transition-duration': '0.1s',
@@ -235,6 +235,40 @@
             magnify_row(current_row, 400, 800);
         }
 
+        var mouse_tracking;
+        function on_panel_mousedown(e) {
+            mouse_tracking = { target: this };
+            toggle_panel_color(this);
+        }
+
+        function on_panel_mousemove(e) {
+            if (mouse_tracking && mouse_tracking.target != this) {
+                toggle_panel_color(this);
+                mouse_tracking.target = this;
+            }
+        }
+
+        function on_panel_mouseup(e) {
+            mouse_tracking = null;
+        }
+
+        var touch_tracking = [];
+        function on_panel_touchstart(e) {
+            touch_tracking[e.identifier] = { target: this };
+            toggle_panel_color(this);
+        }
+
+        function on_panel_touchmove(e) {
+            if (touch_tracking[e.identifier] && touch_tracking[e.identifier].target != this) {
+                toggle_panel_color(this);
+                touch_tracking[e.identifier].target = this;
+            }
+        }
+
+        function on_panel_touchend(e) {
+            touch_tracking[e.identifier] = null;
+        }
+
         $(function() {
             // create the board
             for (i = 1; i <= 16; ++i) {
@@ -283,7 +317,9 @@
                 });
 
                 $(".panel").each(function() {
-                    $(this).on('touchstart', toggle_panel_color);
+                    $(this).on('touchstart', on_panel_touchstart);
+                    $(this).on('touchmove', on_panel_touchmove);
+                    $(this).on('touchend', on_panel_touchend);
                 });
             }
             else {
@@ -299,7 +335,9 @@
                 });
 
                 $(".panel").each(function() {
-                    $(this).on('mousedown', toggle_panel_color);
+                    $(this).on('mousedown', on_panel_mousedown);
+                    $(this).on('mousemove', on_panel_mousemove);
+                    $(this).on('mouseup', on_panel_mouseup);
                 });
             }
         });
