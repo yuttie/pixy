@@ -11,19 +11,6 @@ $(function() {
             || !!('onmsgesturechange' in window); // works on ie10
     }
 
-    function get_board_dimension() {
-        var top_row = $('#row1');
-        var bottom_row = $('#row16');
-
-        var top = top_row.position().top;
-        var bottom = bottom_row.position().top + bottom_row.outerHeight();
-        var left = top_row.position().left;
-        var right = top_row.position().left + top_row.outerWidth();
-        var width = right - left;
-        var height = bottom - top;
-        return { 'top': top, 'bottom': bottom, 'left': left, 'right': right, 'width': width, 'height': height };
-    }
-
     function toggle_panel_color(panel) {
         if ($(panel).hasClass("black") || $(panel).hasClass("white")) {
             $(panel).toggleClass("black white");
@@ -59,7 +46,6 @@ $(function() {
         duration /= 1000;
         delay /= 1000;
 
-        var board = get_board_dimension();
         var row = $('#row' + i);
 
         var unmasked_top = row.position().top;
@@ -73,12 +59,11 @@ $(function() {
         var lower_mask = $('#lower-mask');
         upper_mask.css(transition_props);
         lower_mask.css(transition_props);
-        upper_mask.css('transform', 'translate3d(0px, ' + ((unmasked_top - board.top) - upper_mask.outerHeight()) + 'px, 0px)');
-        lower_mask.css('transform', 'translate3d(0px, ' + (unmasked_bottom - board.top) + 'px, 0px)');
+        upper_mask.css('transform', 'translate3d(0px, ' + (unmasked_top - upper_mask.outerHeight()) + 'px, 0px)');
+        lower_mask.css('transform', 'translate3d(0px, ' + unmasked_bottom + 'px, 0px)');
     }
 
     function move_cursor_button(i) {
-        var board = get_board_dimension();
         var row = $('#row' + i);
 
         var unmasked_top = row.position().top;
@@ -87,22 +72,22 @@ $(function() {
         var prev_button = $('#prev-button');
         var next_button = $('#next-button');
         prev_button.css({
-            'left': (board.left - prev_button.outerWidth()) + 'px',
+            'left': -prev_button.outerWidth() + 'px',
             'top': (unmasked_top - prev_button.outerHeight() - 10) + 'px',
             'visibility': i === 1 ? 'hidden' : 'visible'
         })
         next_button.css({
-            'left': (board.left - next_button.outerWidth()) + 'px',
+            'left': -next_button.outerWidth() + 'px',
             'top': (unmasked_bottom + 10) + 'px',
             'visibility': i === 16 ? 'hidden' : 'visible'
         })
     }
 
     function initialize_mask_transformations() {
-        var board = get_board_dimension();
+        var board_height = $('#board').outerHeight();
 
-        $('#upper-mask').css('transform', 'translate3d(0px, ' + (-board.height) + 'px, 0px)');
-        $('#lower-mask').css('transform', 'translate3d(0px, ' + board.height + 'px, 0px)');
+        $('#upper-mask').css('transform', 'translate3d(0px, ' + (-board_height) + 'px, 0px)');
+        $('#lower-mask').css('transform', 'translate3d(0px, ' + board_height + 'px, 0px)');
     }
 
     function select_row(i) {
