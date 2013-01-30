@@ -69,16 +69,22 @@ $(function() {
         var unmasked_top = row.position().top;
         var unmasked_bottom = unmasked_top + row.outerHeight();
 
+        var scaled_top = unmasked_top - 0.3 * 40 / 2;
+        var scaled_bottom = unmasked_bottom + 0.3 * 40 / 2;
+        var scaled_left = -0.3 * row.outerWidth() / 2;
+
+        var space = 10;
+
         var prev_button = $('#prev-button');
         var next_button = $('#next-button');
         prev_button.css({
-            'left': -prev_button.outerWidth() + 'px',
-            'top': (unmasked_top - prev_button.outerHeight() - 10) + 'px',
+            'left': (scaled_left - 1.3 * 60 / 2 - prev_button.outerWidth() / 2) + 'px',
+            'top': (scaled_top - 40 / 2 - space) + 'px',
             'visibility': i === 1 ? 'hidden' : 'visible'
         })
         next_button.css({
-            'left': -next_button.outerWidth() + 'px',
-            'top': (unmasked_bottom + 10) + 'px',
+            'left': (scaled_left - 1.3 * 60 / 2 - next_button.outerWidth() / 2) + 'px',
+            'top': (scaled_bottom - 40 / 2 + space) + 'px',
             'visibility': i === 16 ? 'hidden' : 'visible'
         })
     }
