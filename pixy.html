@@ -81,6 +81,7 @@
         }
         .row {
             line-height: 0;  /* don't make space between rows */
+            position: relative;
         }
         #mask-window {
             overflow: hidden;
@@ -112,14 +113,13 @@
         };
 
         function get_board_dimension() {
-            var tl_cell = $('#cell1-1');
-            var tr_cell = $('#cell1-16');
-            var bl_cell = $('#cell16-1');
+            var top_row = $('#row1');
+            var bottom_row = $('#row16');
 
-            var top = tl_cell.position().top;
-            var bottom = bl_cell.position().top + bl_cell.outerHeight();
-            var left = tl_cell.position().left;
-            var right = tr_cell.position().left + tr_cell.outerWidth();
+            var top = top_row.position().top;
+            var bottom = bottom_row.position().top + bottom_row.outerHeight();
+            var left = top_row.position().left;
+            var right = top_row.position().left + top_row.outerWidth();
             var width = right - left;
             var height = bottom - top;
             return { 'top': top, 'bottom': bottom, 'left': left, 'right': right, 'width': width, 'height': height };
@@ -152,38 +152,33 @@
         function unmagnify_row(i, duration, delay) {
             duration /= 1000;
             delay /= 1000;
-            for (var j = 1; j <= 16; ++j) {
-                var p = $('#panel' + i + '-' + j);
-                p.css({
-                    'transition-property': 'z-index, transform, -webkit-transform, -moz-transform, -o-transform',
-                    'transition-duration': '0.001s, ' + duration + 's, ' + duration + 's, ' + duration + 's, ' + duration + 's',
-                    'transition-timing-function': 'ease',
-                    'transition-delay': delay + 's'
-                });
-                p.css({
-                    'z-index': 0,
-                    'transform': 'translate3d(0px, 0px, 0px) scale3d(1, 1, 1)',
-                });
-            }
+            var row = $('#row' + i);
+            row.css({
+                'transition-property': 'z-index, transform, -webkit-transform, -moz-transform, -o-transform',
+                'transition-duration': '0.001s, ' + duration + 's, ' + duration + 's, ' + duration + 's, ' + duration + 's',
+                'transition-timing-function': 'ease',
+                'transition-delay': delay + 's'
+            });
+            row.css({
+                'z-index': 0,
+                'transform': 'scale3d(1, 1, 1)',
+            });
         }
 
         function magnify_row(i, duration, delay) {
             duration /= 1000;
             delay /= 1000;
-            for (var j = 1; j <= 16; ++j) {
-                var p = $('#panel' + i + '-' + j);
-                p.css({
-                    'transition-property': 'z-index, transform, -webkit-transform, -moz-transform, -o-transform',
-                    'transition-duration': '0.001s, ' + duration + 's, ' + duration + 's, ' + duration + 's, ' + duration + 's',
-                    'transition-timing-function': 'ease',
-                    'transition-delay': delay + 's'
-                });
-                p.css({
-                    'z-index': 20,
-                    'transform': 'translate3d(' + (-20 * (8 - j) - 10) + 'px, 0px, 0px) ' +
-                                 'scale3d(' + ((40 + 20) / 40) + ', ' + ((40 + 20) / 40) + ', 1)',
-                });
-            }
+            var row = $('#row' + i);
+            row.css({
+                'transition-property': 'z-index, transform, -webkit-transform, -moz-transform, -o-transform',
+                'transition-duration': '0.001s, ' + duration + 's, ' + duration + 's, ' + duration + 's, ' + duration + 's',
+                'transition-timing-function': 'ease',
+                'transition-delay': delay + 's'
+            });
+            row.css({
+                'z-index': 20,
+                'transform': 'scale3d(1.5, 1.5, 1)',
+            });
         }
 
         function move_focus(i, duration, delay) {
@@ -191,10 +186,10 @@
             delay /= 1000;
 
             var board = get_board_dimension();
-            var sl_cell = $('#cell' + i + '-1');
+            var row = $('#row' + i);
 
-            var unmasked_top = sl_cell.position().top;
-            var unmasked_bottom = unmasked_top + sl_cell.outerHeight();
+            var unmasked_top = row.position().top;
+            var unmasked_bottom = unmasked_top + row.outerHeight();
 
             var transition_props = {
                 'transition-property': 'transform, -webkit-transform, -moz-transform, -o-transform',
@@ -212,10 +207,10 @@
 
         function move_cursor_button(i) {
             var board = get_board_dimension();
-            var sl_cell = $('#cell' + i + '-1');
+            var row = $('#row' + i);
 
-            var unmasked_top = sl_cell.position().top;
-            var unmasked_bottom = unmasked_top + sl_cell.outerHeight();
+            var unmasked_top = row.position().top;
+            var unmasked_bottom = unmasked_top + row.outerHeight();
 
             var prev_button = $('#prev-button');
             var next_button = $('#next-button');
