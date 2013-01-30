@@ -81,12 +81,12 @@ $(function() {
             'left': (scaled_left - 1.3 * 60 / 2 - prev_button.outerWidth() / 2) + 'px',
             'top': (scaled_top - 40 / 2 - space) + 'px',
             'visibility': i === 1 ? 'hidden' : 'visible'
-        })
+        });
         next_button.css({
             'left': (scaled_left - 1.3 * 60 / 2 - next_button.outerWidth() / 2) + 'px',
             'top': (scaled_bottom - 40 / 2 + space) + 'px',
             'visibility': i === 16 ? 'hidden' : 'visible'
-        })
+        });
     }
 
     function initialize_mask_transformations() {
