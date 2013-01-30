@@ -115,19 +115,31 @@ $(function() {
     }
 
     function on_panel_touchstart(e) {
-        touch_tracking[e.identifier] = { target: this };
-        toggle_panel_color(this);
+        $.each(e.originalEvent.changedTouches, function(_, t) {
+            var target = document.elementFromPoint(t.clientX, t.clientY);
+            if ($(target).hasClass('panel')) {
+                touch_tracking[t.identifier] = { target: target };
+                toggle_panel_color(target);
+            }
+        });
     }
 
     function on_panel_touchmove(e) {
-        if (touch_tracking[e.identifier] && touch_tracking[e.identifier].target !== this) {
-            toggle_panel_color(this);
-            touch_tracking[e.identifier].target = this;
-        }
+        $.each(e.originalEvent.changedTouches, function(_, t) {
+            var target = document.elementFromPoint(t.clientX, t.clientY);
+            if ($(target).hasClass('panel')) {
+                if (touch_tracking[t.identifier] && touch_tracking[t.identifier].target !== target) {
+                    toggle_panel_color(target);
+                    touch_tracking[t.identifier].target = target;
+                }
+            }
+        });
     }
 
     function on_panel_touchend(e) {
-        touch_tracking[e.identifier] = null;
+        $.each(e.originalEvent.changedTouches, function(_, t) {
+            touch_tracking[t.identifier] = null;
+        });
     }
 
     // create the board
