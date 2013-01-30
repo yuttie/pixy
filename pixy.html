@@ -302,9 +302,9 @@
 
         $(function() {
             // create the board
-            for (i = 1; i <= 16; ++i) {
+            for (var i = 1; i <= 16; ++i) {
                 var html = '<div id="row' + i + '" class="row">';
-                for (j = 1; j <= 16; ++j) {
+                for (var j = 1; j <= 16; ++j) {
                     html += '<div id="cell' + i + '-' + j + '" class="cell"><div id="panel' + i + '-' + j + '" class="panel">?</div></div>';
                 }
                 html += '</div>'
