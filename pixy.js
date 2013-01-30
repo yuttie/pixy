@@ -146,6 +146,19 @@ $(function() {
         });
     }
 
+    $.each(window.location.search.slice(1).split("&"), function(_, param) {
+        var kv = param.split("=");
+        if (kv.length == 1) {
+            kv.push("true");
+        }
+        switch (kv[0]) {
+        case "debug":
+            break;
+        case "data":
+            break;
+        }
+    });
+
     // create the board
     for (var i = 1; i <= 16; ++i) {
         var html = '<div id="row' + i + '" class="row">';
