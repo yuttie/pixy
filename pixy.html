@@ -30,16 +30,10 @@
             border: 1px solid black;
             width: 40px;
             height: 40px;
-        }
-        .panel-text {
-            /* horizontal centering */
-            width: 100%;
+            /* centering the content. */
+            display: table-cell;
             text-align: center;
-            /* vertical centering */
-            position: absolute;
-            top: 50%;
-            line-height: 1em;
-            margin-top: -0.5em;
+            vertical-align: middle;
         }
         .black {
             background-color: black;
@@ -129,7 +123,7 @@
         var current_row = 0;
         function toggle_panel_color(panel) {
             $(panel).css({
-                'transition-property': 'background-color',
+                'transition-property': 'color background-color',
                 'transition-duration': '0.1s',
                 'transition-timing-function': 'linear',
                 'transition-delay': '0s',
@@ -139,14 +133,7 @@
             }
             else {
                 $(panel).addClass("white");
-                var panel_text = $(panel).find('.panel-text');
-                panel_text.css({
-                    'transition-property': 'color',
-                    'transition-duration': '0.1s',
-                    'transition-timing-function': 'linear',
-                    'transition-delay': '0s',
-                });
-                panel_text.css('color', 'rgba(0, 0, 0, 0)');
+                $(panel).css('color', 'rgba(0, 0, 0, 0)');
             }
         }
 
@@ -292,7 +279,7 @@
             for (i = 1; i <= 16; ++i) {
                 var html = '<div id="row' + i + '" class="row">';
                 for (j = 1; j <= 16; ++j) {
-                    html += '<div id="cell' + i + '-' + j + '" class="cell"><div id="panel' + i + '-' + j + '" class="panel"><div class="panel-text">?</div></div></div>';
+                    html += '<div id="cell' + i + '-' + j + '" class="cell"><div id="panel' + i + '-' + j + '" class="panel">?</div></div>';
                 }
                 html += '</div>'
                 $('#board').append(html);
@@ -317,9 +304,6 @@
                 // http://www.html5rocks.com/en/mobile/touch/
                 // http://stackoverflow.com/questions/2890361/disable-scrolling-in-an-iphone-web-application
                 $(document).on('touchmove', function(e) {
-                    e.preventDefault();
-                });
-                $('.panel-text').on('touchstart', function(e) {
                     e.preventDefault();
                 });
 
