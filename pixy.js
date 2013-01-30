@@ -2,7 +2,7 @@
 function is_touch_device() {
     return !!('ontouchstart' in window) // works on most browsers
         || !!('onmsgesturechange' in window); // works on ie10
-};
+}
 
 function get_board_dimension() {
     var top_row = $('#row1');
@@ -83,12 +83,12 @@ function move_cursor_button(i) {
     prev_button.css({
         'left': (board.left - prev_button.outerWidth()) + 'px',
         'top': (unmasked_top - prev_button.outerHeight() - 10) + 'px',
-        'visibility': i == 1 ? 'hidden' : 'visible',
+        'visibility': i === 1 ? 'hidden' : 'visible',
     });
     next_button.css({
         'left': (board.left - next_button.outerWidth()) + 'px',
         'top': (unmasked_bottom + 10) + 'px',
-        'visibility': i == 16 ? 'hidden' : 'visible',
+        'visibility': i === 16 ? 'hidden' : 'visible',
     });
 }
 
@@ -114,7 +114,7 @@ function on_panel_mousedown(e) {
 }
 
 function on_panel_mousemove(e) {
-    if (mouse_tracking && mouse_tracking.target != this) {
+    if (mouse_tracking && mouse_tracking.target !== this) {
         toggle_panel_color(this);
         mouse_tracking.target = this;
     }
@@ -131,7 +131,7 @@ function on_panel_touchstart(e) {
 }
 
 function on_panel_touchmove(e) {
-    if (touch_tracking[e.identifier] && touch_tracking[e.identifier].target != this) {
+    if (touch_tracking[e.identifier] && touch_tracking[e.identifier].target !== this) {
         toggle_panel_color(this);
         touch_tracking[e.identifier].target = this;
     }
