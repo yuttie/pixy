@@ -106,7 +106,7 @@ $(function() {
     }
 
     function select_row(i) {
-        unmagnify_row(current_row, 400, 0)
+        unmagnify_row(current_row, 400, 0);
         current_row = i;
         move_focus(current_row, 400, 400);
         move_cursor_button(current_row);
