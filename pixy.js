@@ -67,8 +67,8 @@ $(function() {
 
         var transition_props = {
             'transition-duration': duration + 's, ' + duration + 's, ' + duration + 's, ' + duration + 's',
-            'transition-delay': delay + 's',
-        };
+            'transition-delay': delay + 's'
+        }
         var upper_mask = $('#upper-mask');
         var lower_mask = $('#lower-mask');
         upper_mask.css(transition_props);
@@ -89,13 +89,13 @@ $(function() {
         prev_button.css({
             'left': (board.left - prev_button.outerWidth()) + 'px',
             'top': (unmasked_top - prev_button.outerHeight() - 10) + 'px',
-            'visibility': i === 1 ? 'hidden' : 'visible',
-        });
+            'visibility': i === 1 ? 'hidden' : 'visible'
+        })
         next_button.css({
             'left': (board.left - next_button.outerWidth()) + 'px',
             'top': (unmasked_bottom + 10) + 'px',
-            'visibility': i === 16 ? 'hidden' : 'visible',
-        });
+            'visibility': i === 16 ? 'hidden' : 'visible'
+        })
     }
 
     function initialize_mask_transformations() {
