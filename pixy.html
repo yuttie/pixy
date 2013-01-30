@@ -105,7 +105,7 @@
             background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHklEQVQIW2NkYGD4D8QgwAgjMASgCiAqwcqgACwAAIrDBAOqGrGNAAAAAElFTkSuQmCC) repeat;
             z-index: 10;
             position: absolute;
-            width: 0;
+            width: 100%;
             height: 100%;
         }
     </style>
@@ -224,17 +224,6 @@
             });
         }
 
-        function adjust_mask_positions() {
-            var board = get_board_dimension();
-
-            $('#upper-mask, #lower-mask').css({
-                'transition': 'none',
-                'top': board.top,
-                'left': board.left,
-                'width': board.width,
-            });
-        }
-
         function initialize_mask_transformations() {
             var board = get_board_dimension();
 
@@ -297,7 +286,6 @@
             }
 
             // masks
-            adjust_mask_positions();
             initialize_mask_transformations();
 
             // initial focus
@@ -307,9 +295,6 @@
             magnify_row(current_row, 400, 400);
 
             // events
-            $(window).resize(function() {
-                adjust_mask_positions();
-            });
             if (is_touch_device()) {
                 // disable the overscroll effect on touch-capable environments.
                 // http://www.html5rocks.com/en/mobile/touch/
