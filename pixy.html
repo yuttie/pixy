@@ -282,7 +282,7 @@
                     html += '<div id="cell' + i + '-' + j + '" class="cell"><div id="panel' + i + '-' + j + '" class="panel">?</div></div>';
                 }
                 html += '</div>'
-                $('#board').append(html);
+                $(html).appendTo('#board');
             }
 
             // masks
