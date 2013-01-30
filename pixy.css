@@ -97,6 +97,9 @@ body {
     font-size: 32px;
     text-align: center;
 }
+.row.magnified:before {
+    color: #ff6600;
+}
 .row {
     line-height: 0;  /* don't make space between rows */
     position: relative;
