@@ -18,6 +18,7 @@
         .cell {
             width: 40px;
             height: 40px;
+            display: inline-block;
         }
         /* Panels are 40 pixels by 40 pixels including its borders. */
         .panel {
@@ -44,21 +45,39 @@
         .white {
             background-color: white;
         }
-        #view, #mask-window {
-            width: 100%;
-            height: 640px;  /* total height of 16 panels with 40px height */
-            /* vertically centered */
+        body {
+            /* cover the entire screen */
             position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        #hcentering {
+            position: relative;
+            height: 100%;
+            /* center the content horizontally */
+            width: 640px;  /* total width of 16 panels with 40px width */
+            margin-left: auto;
+            margin-right: auto;
+        }
+        #vcentering {
+            width: 100%;
+            /* center the content vertically */
+            position: absolute;
+            height: 640px;  /* total height of 16 panels with 40px height */
             top: 50%;
             margin-top: -320px;
         }
+        #view, #mask-window {
+            /* put them at the same position with the same size */
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
         #board {
-            border-collapse: collapse;
             margin: auto;
         }
-        #board td button {
-            width: 8ex;
-            height: 32px;
+        .row {
+            line-height: 0;  /* don't make space between rows */
         }
         #mask-window {
             overflow: hidden;
@@ -272,11 +291,11 @@
         $(function() {
             // create the board
             for (i = 1; i <= 16; ++i) {
-                var html = '<tr id="row' + i + '">';
+                var html = '<div id="row' + i + '" class="row">';
                 for (j = 1; j <= 16; ++j) {
-                    html += '<td id="cell' + i + '-' + j + '"><div class="cell"><div id="panel' + i + '-' + j + '" class="panel"><div class="panel-text">?</div></div></div></td>';
+                    html += '<div id="cell' + i + '-' + j + '" class="cell"><div id="panel' + i + '-' + j + '" class="panel"><div class="panel-text">?</div></div></div>';
                 }
-                html += '</tr>'
+                html += '</div>'
                 $('#board').append(html);
             }
 
@@ -344,15 +363,19 @@
     </script>
 </head>
 <body>
-    <div id="mask-window">
-        <div id="upper-mask" class="mask"></div>
-        <div id="lower-mask" class="mask"></div>
-    </div>
-    <div id="view">
-        <table id="board">
-        </table>
-        <button id="prev-button">↑</button>
-        <button id="next-button">↓</button>
+    <div id="hcentering">
+        <div id="vcentering">
+            <div id="mask-window">
+                <div id="upper-mask" class="mask"></div>
+                <div id="lower-mask" class="mask"></div>
+            </div>
+            <div id="view">
+                <div id="board">
+                </div>
+                <button id="prev-button">↑</button>
+                <button id="next-button">↓</button>
+            </div>
+        </div>
     </div>
 </body>
 </html>
