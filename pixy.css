@@ -127,15 +127,22 @@ body {
 }
 #prev-button, #next-button {
     border: none;
+    background-color: black;
     font-size: 32px;
     font-weight: bold;
     position: absolute;
     width: 40px;
     height: 40px;
     z-index: 20;
+    left: 0;
+    top: 0;
+    -webkit-transform:  rotate(45deg);
+    -moz-transform:     rotate(45deg);
+    -ms-transform:      rotate(45deg);
+    -o-transform:       rotate(45deg);
+    transform:          rotate(45deg);
 }
-#prev-button, #next-button {
-    background-color: black;
+#prev-button {
     /* triangle */
     -webkit-mask-image: -webkit-gradient(
         linear,
@@ -145,19 +152,15 @@ body {
         color-stop(0.5, transparent),
         to(transparent));
 }
-#prev-button {
-    -webkit-transform:  rotate(45deg);
-    -moz-transform:     rotate(45deg);
-    -ms-transform:      rotate(45deg);
-    -o-transform:       rotate(45deg);
-    transform:          rotate(45deg);
-}
 #next-button {
-    -webkit-transform:  rotate(225deg);
-    -moz-transform:     rotate(225deg);
-    -ms-transform:      rotate(225deg);
-    -o-transform:       rotate(225deg);
-    transform:          rotate(225deg);
+    /* triangle */
+    -webkit-mask-image: -webkit-gradient(
+        linear,
+        right bottom, left top,
+        from(#000000),
+        color-stop(0.5,#000000),
+        color-stop(0.5, transparent),
+        to(transparent));
 }
 .mask {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGklEQVQIW2NkYGD4D8SMMBrEAAG4IFwGpwoABMEIA4h1UJkAAAAASUVORK5CYII=) repeat;

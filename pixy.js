@@ -77,14 +77,19 @@ $(function() {
 
         var prev_button = $('#prev-button');
         var next_button = $('#next-button');
-        prev_button.css({
-            'left': (scaled_left - 1.3 * 60 / 2 - prev_button.outerWidth() / 2) + 'px',
-            'top': (scaled_top - 40 / 2 - space) + 'px'
-        });
-        next_button.css({
-            'left': (scaled_left - 1.3 * 60 / 2 - next_button.outerWidth() / 2) + 'px',
-            'top': (scaled_bottom - 40 / 2 + space) + 'px'
-        });
+        prev_button.css('transform',
+            'translate3d(' +
+                (scaled_left - 1.3 * 60 / 2 - prev_button.outerWidth() / 2) + 'px, ' +
+                (scaled_top - 40 / 2 - space) + 'px, ' +
+                '0) ' +
+            'rotate(45deg)');
+        next_button.css('transform',
+            'translate3d(' +
+                (scaled_left - 1.3 * 60 / 2 - next_button.outerWidth() / 2) + 'px, ' +
+                (scaled_bottom - 40 / 2 + space) + 'px, ' +
+                '0) ' +
+            'rotate(45deg)'
+        );
     }
 
     function initialize_mask_transformations() {
