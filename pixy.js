@@ -178,12 +178,23 @@ $(function() {
 
     // create the board
     for (var i = 1; i <= 16; ++i) {
-        var html = '<div id="row' + i + '" class="row">';
+        var row = $('<div id="row' + i + '" class="row"></div>');
         for (var j = 1; j <= 16; ++j) {
-            html += '<div id="cell' + i + '-' + j + '" class="cell"><div id="panel' + i + '-' + j + '" class="panel">?</div></div>';
+            var cell = $('<div id="cell' + i + '-' + j + '" class="cell"></div>');
+            var panel = $('<div id="panel' + i + '-' + j + '" class="panel">?</div>');
+
+            var k = 16 * (i - 1) + (j - 1);
+            if (opt.data[k] === '0') {
+                panel.addClass("white invisible-text");
+            }
+            else if (opt.data[k] === '1') {
+                panel.addClass("black invisible-text");
+            }
+
+            panel.appendTo(cell);
+            cell.appendTo(row);
         }
-        html += '</div>'
-        $(html).appendTo('#board');
+        row.appendTo('#board');
         $('<style>#row' + i + ':before { content: "' + i + '"; }</style>').appendTo('#board');
     }
 
