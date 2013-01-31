@@ -227,11 +227,13 @@ $(function() {
             }
         });
 
-        $(".panel").each(function() {
-            $(this).on('touchstart', on_panel_touchstart);
-            $(this).on('touchmove', on_panel_touchmove);
-            $(this).on('touchend', on_panel_touchend);
-        });
+        if (!opt.noedit) {
+            $(".panel").each(function() {
+                $(this).on('touchstart', on_panel_touchstart);
+                $(this).on('touchmove', on_panel_touchmove);
+                $(this).on('touchend', on_panel_touchend);
+            });
+        }
     }
     else {
         $('#prev-button').on('click', function() {
@@ -245,10 +247,12 @@ $(function() {
             }
         });
 
-        $(".panel").each(function() {
-            $(this).on('mousedown', on_panel_mousedown);
-            $(this).on('mousemove', on_panel_mousemove);
-            $(this).on('mouseup', on_panel_mouseup);
-        });
+        if (!opt.noedit) {
+            $(".panel").each(function() {
+                $(this).on('mousedown', on_panel_mousedown);
+                $(this).on('mousemove', on_panel_mousemove);
+                $(this).on('mouseup', on_panel_mouseup);
+            });
+        }
     }
 });
