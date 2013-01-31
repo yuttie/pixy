@@ -165,6 +165,7 @@ body {
 .mask {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGklEQVQIW2NkYGD4D8SMMBrEAAG4IFwGpwoABMEIA4h1UJkAAAAASUVORK5CYII=) repeat;
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAHklEQVQIW2NkYGD4D8QgwAgjMASgCiAqwcqgACwAAIrDBAOqGrGNAAAAAElFTkSuQmCC) repeat;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAGklEQVQIW2NsaGj4D8SMDFAAZ2AIwFRiqAAAWPUIBW+7s6cAAAAASUVORK5CYII=) repeat;
     z-index: 10;
     position: absolute;
     width: 100%;
