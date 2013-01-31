@@ -198,14 +198,20 @@ $(function() {
         $('<style>#row' + i + ':before { content: "' + i + '"; }</style>').appendTo('#board');
     }
 
-    // masks
-    initialize_mask_transformations();
+    if (opt.nomask) {
+        $('.mask').css('display', 'none');
+        $('#prev-button, #next-button').css('display', 'none');
+    }
+    else {
+        // masks
+        initialize_mask_transformations();
 
-    // initial focus
-    current_row = 1;
-    move_focus(current_row, 400, 0);
-    move_cursor_button(current_row, 400, 400);
-    magnify_row(current_row, 400, 400);
+        // initial focus
+        current_row = 1;
+        move_focus(current_row, 400, 0);
+        move_cursor_button(current_row, 400, 400);
+        magnify_row(current_row, 400, 400);
+    }
 
     // events
     if (is_touch_device()) {
@@ -216,16 +222,18 @@ $(function() {
             e.preventDefault();
         });
 
-        $('#prev-button').on('touchstart', function() {
-            if (current_row > 1) {
-                select_row(current_row - 1);
-            }
-        });
-        $('#next-button').on('touchstart', function() {
-            if (current_row < 16) {
-                select_row(current_row + 1);
-            }
-        });
+        if (!opt.nomask) {
+            $('#prev-button').on('touchstart', function() {
+                if (current_row > 1) {
+                    select_row(current_row - 1);
+                }
+            });
+            $('#next-button').on('touchstart', function() {
+                if (current_row < 16) {
+                    select_row(current_row + 1);
+                }
+            });
+        }
 
         if (!opt.noedit) {
             $(".panel").each(function() {
@@ -236,16 +244,18 @@ $(function() {
         }
     }
     else {
-        $('#prev-button').on('click', function() {
-            if (current_row > 1) {
-                select_row(current_row - 1);
-            }
-        });
-        $('#next-button').on('click', function() {
-            if (current_row < 16) {
-                select_row(current_row + 1);
-            }
-        });
+        if (!opt.nomask) {
+            $('#prev-button').on('click', function() {
+                if (current_row > 1) {
+                    select_row(current_row - 1);
+                }
+            });
+            $('#next-button').on('click', function() {
+                if (current_row < 16) {
+                    select_row(current_row + 1);
+                }
+            });
+        }
 
         if (!opt.noedit) {
             $(".panel").each(function() {
