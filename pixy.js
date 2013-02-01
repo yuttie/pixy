@@ -150,6 +150,26 @@ $(function() {
         });
     }
 
+    function change_query_string(qs, key, value) {
+        var re = new RegExp('([?&])' + key + '=[^&]+');
+        if (qs.match(re)) {
+            // The key is already used.
+            qs = qs.replace(re, '$1' + key + '=' + value);
+        }
+        else {
+            // The key isn't used.
+            if (qs.match(/[?&]$/)) {
+                qs += key + '=' + value;
+            }
+            else if (qs.length > 0) {
+                qs += '&' + key + '=' + value;
+            }
+            else {
+                qs += '?' + key + '=' + value;
+            }
+        }
+        return qs;
+    }
     function save_data() {
         var data = "";
         for (var i = 1; i <= 16; ++i) {
@@ -167,20 +187,8 @@ $(function() {
                 }
             }
         }
-        var re = /([?&])data=[^&]+/;
         var loc = window.location;
-        if (loc.search.match(re)) {
-            loc.search = loc.search.replace(re, '$1data=' + data);
-        }
-        else if (loc.search.match(/[?&]$/)) {
-            loc.search += 'data=' + data;
-        }
-        else if (loc.search.length > 0) {
-            loc.search += '&data=' + data;
-        }
-        else {
-            loc.search += '?data=' + data;
-        }
+        loc.search = change_query_string(loc.search, 'data', data);
     }
 
     // process options
