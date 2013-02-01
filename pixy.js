@@ -20,6 +20,47 @@ $(function() {
             || !!('onmsgesturechange' in window); // works on ie10
     }
 
+    function get_data() {
+        var data = "";
+        for (var i = 1; i <= 16; ++i) {
+            for (var j = 1; j <= 16; ++j) {
+                var panel = $('#panel' + i + '-' + j);
+
+                if (panel.hasClass('white')) {
+                    data += '0';
+                }
+                else if (panel.hasClass('black')) {
+                    data += '1';
+                }
+                else {
+                    data += '.';
+                }
+            }
+        }
+        return data;
+    }
+
+    function set_data(data) {
+        for (var i = 1; i <= 16; ++i) {
+            for (var j = 1; j <= 16; ++j) {
+                var panel = $('#panel' + i + '-' + j);
+
+                var k = 16 * (i - 1) + (j - 1);
+                if (data[k] === '0') {
+                    panel.addClass("white invisible-text");
+                    panel.removeClass("black");
+                }
+                else if (data[k] === '1') {
+                    panel.addClass("black invisible-text");
+                    panel.removeClass("white");
+                }
+                else {
+                    panel.removeClass("white black invisible-text");
+                }
+            }
+        }
+    }
+
     function toggle_panel_color(panel) {
         if ($(panel).hasClass("black") || $(panel).hasClass("white")) {
             $(panel).toggleClass("black white");
@@ -174,47 +215,6 @@ $(function() {
             }
         });
         return qs;
-    }
-
-    function get_data() {
-        var data = "";
-        for (var i = 1; i <= 16; ++i) {
-            for (var j = 1; j <= 16; ++j) {
-                var panel = $('#panel' + i + '-' + j);
-
-                if (panel.hasClass('white')) {
-                    data += '0';
-                }
-                else if (panel.hasClass('black')) {
-                    data += '1';
-                }
-                else {
-                    data += '.';
-                }
-            }
-        }
-        return data;
-    }
-
-    function set_data(data) {
-        for (var i = 1; i <= 16; ++i) {
-            for (var j = 1; j <= 16; ++j) {
-                var panel = $('#panel' + i + '-' + j);
-
-                var k = 16 * (i - 1) + (j - 1);
-                if (data[k] === '0') {
-                    panel.addClass("white invisible-text");
-                    panel.removeClass("black");
-                }
-                else if (data[k] === '1') {
-                    panel.addClass("black invisible-text");
-                    panel.removeClass("white");
-                }
-                else {
-                    panel.removeClass("white black invisible-text");
-                }
-            }
-        }
     }
 
     function export_data() {
