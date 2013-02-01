@@ -239,7 +239,8 @@ $(function() {
             cell.appendTo(row);
         }
         row.appendTo('#board');
-        $('<style>#row' + i + ':before { content: "' + i + '"; }</style>').appendTo('#board');
+        var num_str = (i < 10 ? '0' : '') + i;
+        $('<style>#row' + i + ':before { content: "' + num_str + '"; }</style>').appendTo('#board');
     }
 
     if (opt.permalink) {
