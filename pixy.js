@@ -369,6 +369,22 @@ $(function() {
                     select_row(current_row + 1);
                 }
             });
+            $(document).on('wheel mousewheel DOMMouseScroll', function(e) {
+                var delta =   e.originalEvent.deltaY       // 'wheel' event
+                          || -e.originalEvent.wheelDeltaY  // Webkit's mousewheel event
+                          || -e.originalEvent.wheelDelta;  // other's mousewheel event
+                if (delta > 0) {
+                    if (current_row < 16) {
+                        select_row(current_row + 1);
+                    }
+                }
+                else if (delta < 0) {
+                    if (current_row > 1) {
+                        select_row(current_row - 1);
+                    }
+                }
+                e.preventDefault();
+            });
         }
 
         if (!opt.noedit) {
