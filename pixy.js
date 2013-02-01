@@ -146,7 +146,7 @@ $(function() {
         current_row = i;
         move_focus(current_row);
         move_cursor_button(current_row);
-        magnify_row(current_row, 400, 400);
+        magnify_row(current_row, 400, 0);
         localStorage['resume_data'] = JSON.stringify({ 'row': current_row, 'data': get_data() });
     }
 
