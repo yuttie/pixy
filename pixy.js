@@ -249,7 +249,7 @@ $(function() {
             }
             break;
         case "export":
-            opt.export = true;
+            opt['export'] = true;
             break;
         case "data":
             opt.data = kv[1];
@@ -278,7 +278,7 @@ $(function() {
         set_data(localStorage['resume_data']);
     }
 
-    if (opt.export) {
+    if (opt['export']) {
         $('#export-button').css('display', 'block');
     }
 
@@ -371,7 +371,7 @@ $(function() {
         }
     }
 
-    if (opt.export) {
+    if (opt['export']) {
         $('#export-button').on('click', function() {
             export_data();
         });
