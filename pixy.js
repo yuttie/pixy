@@ -4,6 +4,7 @@ $(function() {
     var opt = {
         'noedit': false,
         'nomask': false,
+        'permalink': false,
         'data': ""
     };
 
@@ -175,6 +176,11 @@ $(function() {
                 opt.nomask = true;
             }
             break;
+        case "permalink":
+            if (kv[1] == 'true') {
+                opt.permalink = true;
+            }
+            break;
         case "data":
             opt.data = kv[1];
             break;
@@ -201,6 +207,10 @@ $(function() {
         }
         row.appendTo('#board');
         $('<style>#row' + i + ':before { content: "' + i + '"; }</style>').appendTo('#board');
+    }
+
+    if (opt.permalink) {
+        $('#permalink-button').css('display', 'block');
     }
 
     if (opt.nomask) {
@@ -269,5 +279,40 @@ $(function() {
                 $(this).on('mouseup', on_panel_mouseup);
             });
         }
+    }
+
+    if (opt.permalink) {
+        $('#permalink-button').on('click', function() {
+            var data = "";
+            for (var i = 1; i <= 16; ++i) {
+                for (var j = 1; j <= 16; ++j) {
+                    var panel = $('#panel' + i + '-' + j);
+
+                    if (panel.hasClass('white')) {
+                        data += '0';
+                    }
+                    else if (panel.hasClass('black')) {
+                        data += '1';
+                    }
+                    else {
+                        data += '.';
+                    }
+                }
+            }
+            var re = /([?&])data=[^&]+/;
+            var loc = window.location;
+            if (loc.search.match(re)) {
+                loc.search = loc.search.replace(re, '$1data=' + data);
+            }
+            else if (loc.search.match(/[?&]$/)) {
+                loc.search += 'data=' + data;
+            }
+            else if (loc.search.length > 0) {
+                loc.search += '&data=' + data;
+            }
+            else {
+                loc.search += '?data=' + data;
+            }
+        });
     }
 });
