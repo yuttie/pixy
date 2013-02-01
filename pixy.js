@@ -2,6 +2,7 @@ $(function() {
     "use strict";
 
     var opt = {
+        'row': 1,
         'noedit': false,
         'nomask': false,
         'permalink': false,
@@ -187,6 +188,9 @@ $(function() {
         var kv = param.split("=");
 
         switch (kv[0]) {
+        case "row":
+            opt.row = parseInt(kv[1]);
+            break;
         case "noedit":
             opt.noedit = true;
             break;
@@ -238,7 +242,7 @@ $(function() {
         initialize_mask_transformations();
 
         // initial focus
-        current_row = 1;
+        current_row = opt.row;
         move_focus(current_row, 400, 0);
         move_cursor_button(current_row, 400, 400);
         magnify_row(current_row, 400, 400);
