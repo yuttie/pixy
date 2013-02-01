@@ -5,7 +5,7 @@ $(function() {
         'row': 1,
         'noedit': false,
         'nomask': false,
-        'permalink': false,
+        'export': false,
         'data': ""
     };
 
@@ -193,7 +193,7 @@ $(function() {
         return data;
     }
 
-    function save_data() {
+    function export_data() {
         var loc = window.location;
         loc.search = change_query_string(loc.search, { 'data': get_data() });
     }
@@ -212,8 +212,8 @@ $(function() {
         case "nomask":
             opt.nomask = true;
             break;
-        case "permalink":
-            opt.permalink = true;
+        case "export":
+            opt.export = true;
             break;
         case "data":
             opt.data = kv[1];
@@ -244,8 +244,8 @@ $(function() {
         $('<style>#row' + i + ':before { content: "' + num_str + '"; }</style>').appendTo('#board');
     }
 
-    if (opt.permalink) {
-        $('#permalink-button').css('display', 'block');
+    if (opt.export) {
+        $('#export-button').css('display', 'block');
     }
 
     if (opt.nomask) {
@@ -316,9 +316,9 @@ $(function() {
         }
     }
 
-    if (opt.permalink) {
-        $('#permalink-button').on('click', function() {
-            save_data();
+    if (opt.export) {
+        $('#export-button').on('click', function() {
+            export_data();
         });
     }
 });

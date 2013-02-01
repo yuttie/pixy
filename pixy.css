@@ -169,7 +169,7 @@ body {
     width: 100%;
     height: 100%;
 }
-#permalink-button {
+#export-button {
     display: none;  /* initially doesn't exist. */
     position: absolute;
     right: 0;
