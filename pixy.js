@@ -27,6 +27,7 @@ $(function() {
         else {
             $(panel).addClass("white invisible-text");
         }
+        localStorage['resume_data'] = get_data();
     }
 
     function unmagnify_row(i, duration, delay) {
@@ -272,6 +273,9 @@ $(function() {
 
     if (opt.data.length > 0) {
         set_data(opt.data);
+    }
+    else if (typeof localStorage['resume_data'] !== 'undefined') {
+        set_data(localStorage['resume_data']);
     }
 
     if (opt.export) {
