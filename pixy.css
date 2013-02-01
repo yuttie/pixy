@@ -164,16 +164,6 @@ body {
 }
 .mask {
     background-color: transparent;
-    background-image: -webkit-radial-gradient(rgba(128, 128, 128, 1.0) 15%, transparent 20%),
-                      -webkit-radial-gradient(rgba(128, 128, 128, 1.0) 15%, transparent 20%);
-    background-image:    -moz-radial-gradient(rgba(128, 128, 128, 1.0) 15%, transparent 20%),
-                         -moz-radial-gradient(rgba(128, 128, 128, 1.0) 15%, transparent 20%);
-    background-image:      -o-radial-gradient(rgba(128, 128, 128, 1.0) 15%, transparent 20%),
-                           -o-radial-gradient(rgba(128, 128, 128, 1.0) 15%, transparent 20%);
-    background-image:         radial-gradient(rgba(128, 128, 128, 1.0) 15%, transparent 20%),
-                              radial-gradient(rgba(128, 128, 128, 1.0) 15%, transparent 20%);
-    background-size: 5px 5px;
-    background-position: 0 0, 2.5px 2.5px;
     z-index: 10;
     position: absolute;
     width: 100%;
