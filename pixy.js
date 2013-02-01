@@ -292,7 +292,10 @@ $(function() {
         initialize_mask_transformations();
 
         // initial focus
-        if (typeof localStorage['resume_data'] !== 'undefined') {
+        if (opt.data !== null) {
+            current_row = opt.row;
+        }
+        else if (typeof localStorage['resume_data'] !== 'undefined') {
             current_row = JSON.parse(localStorage['resume_data']).row;
         }
         else {
