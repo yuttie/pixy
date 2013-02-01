@@ -27,7 +27,7 @@ $(function() {
         else {
             $(panel).addClass("white invisible-text");
         }
-        localStorage['resume_data'] = get_data();
+        localStorage['resume_data'] = JSON.stringify({ 'row': current_row, 'data': get_data() });
     }
 
     function unmagnify_row(i, duration, delay) {
@@ -106,6 +106,7 @@ $(function() {
         move_focus(current_row);
         move_cursor_button(current_row);
         magnify_row(current_row, 400, 400);
+        localStorage['resume_data'] = JSON.stringify({ 'row': current_row, 'data': get_data() });
     }
 
     function on_panel_mousedown(e) {
@@ -275,7 +276,7 @@ $(function() {
         set_data(opt.data);
     }
     else if (typeof localStorage['resume_data'] !== 'undefined') {
-        set_data(localStorage['resume_data']);
+        set_data(JSON.parse(localStorage['resume_data']).data);
     }
 
     if (opt['export']) {
@@ -291,7 +292,12 @@ $(function() {
         initialize_mask_transformations();
 
         // initial focus
-        current_row = opt.row;
+        if (typeof localStorage['resume_data'] !== 'undefined') {
+            current_row = JSON.parse(localStorage['resume_data']).row;
+        }
+        else {
+            current_row = opt.row;
+        }
         move_focus(current_row, 400, 0);
         move_cursor_button(current_row, 400, 400);
         magnify_row(current_row, 400, 400);
