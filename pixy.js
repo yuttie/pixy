@@ -7,7 +7,7 @@ $(function() {
         'nomask': false,
         'memory': null,
         'export': false,
-        'data': ""
+        'data': null
     };
 
     var current_row = 0;
@@ -271,7 +271,7 @@ $(function() {
         $('<style>#row' + i + ':before { content: "' + num_str + '"; }</style>').appendTo('#board');
     }
 
-    if (opt.data.length > 0) {
+    if (opt.data !== null) {
         set_data(opt.data);
     }
     else if (typeof localStorage['resume_data'] !== 'undefined') {
