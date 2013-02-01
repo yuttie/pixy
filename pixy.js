@@ -210,7 +210,7 @@ $(function() {
     }
 
     if (opt.permalink) {
-        $('<button id="permalink-button">Create Permanent Link</button>').appendTo('#view');
+        $('#permalink-button').css('display', 'block');
     }
 
     if (opt.nomask) {
