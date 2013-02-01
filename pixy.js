@@ -5,6 +5,7 @@ $(function() {
         'row': 1,
         'noedit': false,
         'nomask': false,
+        'memory': null,
         'export': false,
         'data': ""
     };
@@ -233,6 +234,19 @@ $(function() {
         case "nomask":
             opt.nomask = true;
             break;
+        case "memory":
+            switch (kv[1]) {
+            case 'save':
+                opt.memory = 'save';
+                break;
+            case 'load':
+                opt.memory = 'load';
+                break;
+            case 'clear':
+                opt.memory = 'clear';
+                break;
+            }
+            break;
         case "export":
             opt.export = true;
             break;
@@ -277,6 +291,27 @@ $(function() {
         move_focus(current_row, 400, 0);
         move_cursor_button(current_row, 400, 400);
         magnify_row(current_row, 400, 400);
+    }
+
+    // memory
+    switch (opt.memory) {
+    case 'load':
+        $('#load-panel').css('display', 'block');
+        $('.load-button').on('click', function() {
+            var n = parseInt($(this).attr("id").slice('load-button'.length));
+            set_data(localStorage[n] || '');
+        });
+        break;
+    case 'save':
+        $('#save-panel').css('display', 'block');
+        $('.save-button').on('click', function() {
+            var n = parseInt($(this).attr("id").slice('save-button'.length));
+            localStorage[n] = get_data();
+        });
+        break;
+    case 'clear':
+        localStorage.clear();
+        break;
     }
 
     // events
