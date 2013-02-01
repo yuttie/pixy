@@ -172,7 +172,8 @@ $(function() {
         });
         return qs;
     }
-    function save_data() {
+
+    function get_data() {
         var data = "";
         for (var i = 1; i <= 16; ++i) {
             for (var j = 1; j <= 16; ++j) {
@@ -189,8 +190,12 @@ $(function() {
                 }
             }
         }
+        return data;
+    }
+
+    function save_data() {
         var loc = window.location;
-        loc.search = change_query_string(loc.search, { 'data': data });
+        loc.search = change_query_string(loc.search, { 'data': get_data() });
     }
 
     // process options
