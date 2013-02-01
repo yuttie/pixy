@@ -201,9 +201,14 @@ $(function() {
                 var k = 16 * (i - 1) + (j - 1);
                 if (data[k] === '0') {
                     panel.addClass("white invisible-text");
+                    panel.removeClass("black");
                 }
                 else if (data[k] === '1') {
                     panel.addClass("black invisible-text");
+                    panel.removeClass("white");
+                }
+                else {
+                    panel.removeClass("white black invisible-text");
                 }
             }
         }
