@@ -111,8 +111,8 @@ $(function() {
         var unmasked_top = row.position().top;
         var unmasked_bottom = unmasked_top + row.outerHeight();
 
-        var scaled_top = unmasked_top - 0.3 * 40 / 2;
-        var scaled_bottom = unmasked_bottom + 0.3 * 40 / 2;
+        var scaled_top = unmasked_top - 0.3 * row.outerHeight() / 2;
+        var scaled_bottom = unmasked_bottom + 0.3 * row.outerHeight() / 2;
         var scaled_left = -0.3 * row.outerWidth() / 2;
 
         var space = 10;
