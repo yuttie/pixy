@@ -193,6 +193,22 @@ $(function() {
         return data;
     }
 
+    function set_data(data) {
+        for (var i = 1; i <= 16; ++i) {
+            for (var j = 1; j <= 16; ++j) {
+                var panel = $('#panel' + i + '-' + j);
+
+                var k = 16 * (i - 1) + (j - 1);
+                if (data[k] === '0') {
+                    panel.addClass("white invisible-text");
+                }
+                else if (data[k] === '1') {
+                    panel.addClass("black invisible-text");
+                }
+            }
+        }
+    }
+
     function export_data() {
         var loc = window.location;
         loc.search = change_query_string(loc.search, { 'data': get_data() });
@@ -227,21 +243,16 @@ $(function() {
         for (var j = 1; j <= 16; ++j) {
             var cell = $('<div id="cell' + i + '-' + j + '" class="cell"></div>');
             var panel = $('<div id="panel' + i + '-' + j + '" class="panel">?</div>');
-
-            var k = 16 * (i - 1) + (j - 1);
-            if (opt.data[k] === '0') {
-                panel.addClass("white invisible-text");
-            }
-            else if (opt.data[k] === '1') {
-                panel.addClass("black invisible-text");
-            }
-
             panel.appendTo(cell);
             cell.appendTo(row);
         }
         row.appendTo('#board');
         var num_str = (i < 10 ? '0' : '') + i;
         $('<style>#row' + i + ':before { content: "' + num_str + '"; }</style>').appendTo('#board');
+    }
+
+    if (opt.data.length > 0) {
+        set_data(opt.data);
     }
 
     if (opt.export) {
