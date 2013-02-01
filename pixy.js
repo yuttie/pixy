@@ -115,23 +115,22 @@ $(function() {
         var scaled_bottom = unmasked_bottom + 0.3 * row.outerHeight() / 2;
         var scaled_left = -0.3 * row.outerWidth() / 2;
 
-        var space = 10;
+        var space = 0;
 
         var prev_button = $('#prev-button');
         var next_button = $('#next-button');
         prev_button.css('transform',
             'translate3d(' +
                 (scaled_left - 1.3 * 60 / 2 - prev_button.outerWidth() / 2) + 'px, ' +
-                (scaled_top - 40 / 2 - space) + 'px, ' +
-                '0) ' +
-            'rotate(45deg)');
+                (scaled_top - prev_button.outerHeight() - space) + 'px, ' +
+                '0)' +
+            'rotate(0deg)');
         next_button.css('transform',
             'translate3d(' +
                 (scaled_left - 1.3 * 60 / 2 - next_button.outerWidth() / 2) + 'px, ' +
-                (scaled_bottom - 40 / 2 + space) + 'px, ' +
+                (scaled_bottom + space) + 'px, ' +
                 '0) ' +
-            'rotate(45deg)'
-        );
+            'rotate(180deg)');
     }
 
     function initialize_mask_transformations() {
