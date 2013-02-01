@@ -168,15 +168,6 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    /* transitions */
-    -webkit-transition-property:         -webkit-transform;
-    -moz-transition-property:            -moz-transform;
-    -o-transition-property:              -o-transform;
-    transition-property:                 transform, -webkit-transform, -moz-transform, -o-transform;
-    -webkit-transition-timing-function:  ease;
-    -moz-transition-timing-function:     ease;
-    -o-transition-timing-function:       ease;
-    transition-timing-function:          ease;
 }
 #permalink-button {
     display: none;  /* initially doesn't exist. */

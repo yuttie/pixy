@@ -49,23 +49,14 @@ $(function() {
         row.addClass('magnified');
     }
 
-    function move_focus(i, duration, delay) {
-        duration /= 1000;
-        delay /= 1000;
-
+    function move_focus(i) {
         var row = $('#row' + i);
 
         var unmasked_top = row.position().top;
         var unmasked_bottom = unmasked_top + row.outerHeight();
 
-        var transition_props = {
-            'transition-duration': duration + 's, ' + duration + 's, ' + duration + 's, ' + duration + 's',
-            'transition-delay': delay + 's'
-        }
         var upper_mask = $('#upper-mask');
         var lower_mask = $('#lower-mask');
-        upper_mask.css(transition_props);
-        lower_mask.css(transition_props);
         upper_mask.css('transform', 'translate3d(0px, ' + (unmasked_top - upper_mask.outerHeight()) + 'px, 0px)');
         lower_mask.css('transform', 'translate3d(0px, ' + unmasked_bottom + 'px, 0px)');
     }
@@ -109,9 +100,9 @@ $(function() {
     function select_row(i) {
         unmagnify_row(current_row, 400, 0);
         current_row = i;
-        move_focus(current_row, 400, 400);
+        move_focus(current_row);
         move_cursor_button(current_row);
-        magnify_row(current_row, 400, 800);
+        magnify_row(current_row, 400, 400);
     }
 
     function on_panel_mousedown(e) {
