@@ -185,25 +185,16 @@ $(function() {
     // process options
     $.each(window.location.search.slice(1).split("&"), function(_, param) {
         var kv = param.split("=");
-        if (kv.length == 1) {
-            kv.push("true");
-        }
 
         switch (kv[0]) {
         case "noedit":
-            if (kv[1] == 'true') {
-                opt.noedit = true;
-            }
+            opt.noedit = true;
             break;
         case "nomask":
-            if (kv[1] == 'true') {
-                opt.nomask = true;
-            }
+            opt.nomask = true;
             break;
         case "permalink":
-            if (kv[1] == 'true') {
-                opt.permalink = true;
-            }
+            opt.permalink = true;
             break;
         case "data":
             opt.data = kv[1];
