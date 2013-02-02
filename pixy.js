@@ -376,6 +376,20 @@ $(function() {
                 }
                 e.preventDefault();
             });
+            $(document).on('keydown', function(e) {
+                switch (e.originalEvent.keyIdentifier) {
+                case 'Down':
+                    if (current_row < 16) {
+                        select_row(current_row + 1);
+                    }
+                    break;
+                case 'Up':
+                    if (current_row > 1) {
+                        select_row(current_row - 1);
+                    }
+                    break;
+                }
+            });
         }
 
         if (!opt.noedit) {
