@@ -126,20 +126,34 @@ body {
 #mask-window {
     overflow: hidden;
 }
+#cursor-panel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 60px;
+    height: 180px;
+}
 #prev-button, #next-button {
-    border: none;
-    font-size: 32px;
-    font-weight: bold;
     position: absolute;
     width: 60px;
     height: 60px;
-    z-index: 20;
-    left: 0;
-    top: 0;
     background-image: url("arrow.svg");
     background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+CjwhLS0gQ3JlYXRlZCB3aXRoIElua3NjYXBlIChodHRwOi8vd3d3Lmlua3NjYXBlLm9yZy8pIC0tPgoKPHN2ZwogICB4bWxuczpkYz0iaHR0cDovL3B1cmwub3JnL2RjL2VsZW1lbnRzLzEuMS8iCiAgIHhtbG5zOmNjPSJodHRwOi8vY3JlYXRpdmVjb21tb25zLm9yZy9ucyMiCiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIKICAgeG1sbnM6c3ZnPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIKICAgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIgogICB2ZXJzaW9uPSIxLjEiCiAgIHdpZHRoPSI2NCIKICAgaGVpZ2h0PSI2NCIKICAgaWQ9InN2ZzI5ODUiPgogIDxkZWZzCiAgICAgaWQ9ImRlZnMyOTg3IiAvPgogIDxtZXRhZGF0YQogICAgIGlkPSJtZXRhZGF0YTI5OTAiPgogICAgPHJkZjpSREY+CiAgICAgIDxjYzpXb3JrCiAgICAgICAgIHJkZjphYm91dD0iIj4KICAgICAgICA8ZGM6Zm9ybWF0PmltYWdlL3N2Zyt4bWw8L2RjOmZvcm1hdD4KICAgICAgICA8ZGM6dHlwZQogICAgICAgICAgIHJkZjpyZXNvdXJjZT0iaHR0cDovL3B1cmwub3JnL2RjL2RjbWl0eXBlL1N0aWxsSW1hZ2UiIC8+CiAgICAgICAgPGRjOnRpdGxlPjwvZGM6dGl0bGU+CiAgICAgIDwvY2M6V29yaz4KICAgIDwvcmRmOlJERj4KICA8L21ldGFkYXRhPgogIDxnCiAgICAgaWQ9ImxheWVyMSI+CiAgICA8cGF0aAogICAgICAgZD0iTSAwLjMwOTU0NjkzLDQ3Ljg0NTIyIDMxLjk5OTk5NywxNi4xNTQ3NzEgNjMuNjkwNDUzLDQ3Ljg0NTIyOSB6IgogICAgICAgaWQ9InJlY3QyOTkzIgogICAgICAgc3R5bGU9ImZpbGw6IzAwMDAwMDtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZSIgLz4KICA8L2c+Cjwvc3ZnPgo=);
     background-size: cover;
     background-position: center;
+}
+#prev-button {
+    left: 0;
+    top: 0;
+}
+#next-button {
+    left: 0;
+    bottom: 0;
+    -webkit-transform: rotate(180deg);
+    -moz-transform:    rotate(180deg);
+    -ms-transform:     rotate(180deg);
+    -o-transform:      rotate(180deg);
+    transform:         rotate(180deg);
 }
 .mask {
     background-color: transparent;
