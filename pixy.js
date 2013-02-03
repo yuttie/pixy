@@ -213,6 +213,29 @@ $(function() {
         loc.search = change_query_string(loc.search, { 'data': get_data() });
     }
 
+    function make_thumbnail(data, scale) {
+        var canvas = $('<canvas/>');
+        canvas[0].width = scale * 16;
+        canvas[0].height = scale * 16;
+        var ctx = canvas[0].getContext('2d');
+        for (var i = 0; i < 16; ++i) {
+            for (var j = 0; j < 16; ++j) {
+                var k = 16 * i + j;
+                if (data[k] === '0') {
+                    ctx.fillStyle = 'white';
+                }
+                else if (data[k] === '1') {
+                    ctx.fillStyle = 'black';
+                }
+                else {
+                    ctx.fillStyle = 'gray';
+                }
+                ctx.fillRect(scale * j, scale * i, scale, scale);
+            }
+        }
+        return canvas[0].toDataURL();
+    }
+
     // process options
     $.each(window.location.search.slice(1).split("&"), function(_, param) {
         var kv = param.split("=");
@@ -267,6 +290,11 @@ $(function() {
     switch (opt.memory) {
     case 'load':
         $('#load-panel').css('display', 'block');
+        $('.load-button').each(function() {
+            var n = parseInt($(this).attr("id").slice('load-button'.length));
+            var scale = Math.floor($(this).width() / 16);
+            $(this).css('background-image', 'url(' + make_thumbnail(localStorage[n] || '', scale) + ')');
+        });
         $('.load-button').on('click', function() {
             var n = parseInt($(this).attr("id").slice('load-button'.length));
             set_data(localStorage[n] || '');
@@ -274,9 +302,17 @@ $(function() {
         break;
     case 'save':
         $('#save-panel').css('display', 'block');
+        $('.save-button').each(function() {
+            var n = parseInt($(this).attr("id").slice('save-button'.length));
+            var scale = Math.floor($(this).width() / 16);
+            $(this).css('background-image', 'url(' + make_thumbnail(localStorage[n] || '', scale) + ')');
+        });
         $('.save-button').on('click', function() {
             var n = parseInt($(this).attr("id").slice('save-button'.length));
-            localStorage[n] = get_data();
+            var scale = Math.floor($(this).width() / 16);
+            var data = get_data();
+            localStorage[n] = data;
+            $(this).css('background-image', 'url(' + make_thumbnail(data, scale) + ')');
         });
         break;
     case 'clear':
