@@ -175,6 +175,7 @@ body {
     height: 80px;
     background-position: center;
     background-repeat: no-repeat;
+    border-radius: 8px;
 }
 #export-button {
     display: none;  /* initially doesn't exist. */
