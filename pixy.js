@@ -328,7 +328,7 @@ $(function() {
     }
 
     if (opt['export']) {
-        $('#export-button').css('display', 'block');
+        $('#export-button').css('display', 'inline-block');
     }
 
     if (opt.nomask) {
