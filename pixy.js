@@ -2,15 +2,15 @@ $(function() {
     "use strict";
 
     var opt = {
-        'row': 1,
+        'row': null,
         'noedit': false,
-        'nomask': false,
-        'memory': null,
+        'nofocus': false,
+        'memory': [],
         'export': false,
         'data': null
     };
 
-    var current_row = 0;
+    var current_row = null;
     var mouse_tracking;
     var touch_tracking = [];
 
@@ -96,23 +96,23 @@ $(function() {
     function move_focus(i) {
         var row = $('#row' + i);
 
-        var unmasked_top = row.position().top;
-        var unmasked_bottom = unmasked_top + row.outerHeight();
+        var focused_top = row.position().top;
+        var focused_bottom = focused_top + row.outerHeight();
 
         var upper_mask = $('#upper-mask');
         var lower_mask = $('#lower-mask');
-        upper_mask.css('transform', 'translate3d(0px, ' + (unmasked_top - upper_mask.outerHeight()) + 'px, 0px)');
-        lower_mask.css('transform', 'translate3d(0px, ' + unmasked_bottom + 'px, 0px)');
+        upper_mask.css('transform', 'translate3d(0px, ' + (focused_top - upper_mask.outerHeight()) + 'px, 0px)');
+        lower_mask.css('transform', 'translate3d(0px, ' + focused_bottom + 'px, 0px)');
     }
 
-    function move_cursor_button(i) {
+    function move_cursor_buttons(i) {
         var row = $('#row' + i);
 
-        var unmasked_top = row.position().top;
-        var unmasked_bottom = unmasked_top + row.outerHeight();
+        var focused_top = row.position().top;
+        var focused_bottom = focused_top + row.outerHeight();
 
-        var scaled_top = unmasked_top - 0.3 * row.outerHeight() / 2;
-        var scaled_bottom = unmasked_bottom + 0.3 * row.outerHeight() / 2;
+        var scaled_top = focused_top - 0.3 * row.outerHeight() / 2;
+        var scaled_bottom = focused_bottom + 0.3 * row.outerHeight() / 2;
         var scaled_left = -0.3 * row.outerWidth() / 2;
 
         var space = 0;
@@ -121,7 +121,7 @@ $(function() {
         cursor_panel.css('transform',
             'translate3d(' +
                 (scaled_left - 1.3 * 60 / 2 - cursor_panel.outerWidth() / 2) + 'px, ' +
-                (unmasked_top + row.outerHeight() / 2 - cursor_panel.outerHeight() / 2 - space) + 'px, ' +
+                (focused_top + row.outerHeight() / 2 - cursor_panel.outerHeight() / 2 - space) + 'px, ' +
                 '0)');
     }
 
@@ -136,7 +136,7 @@ $(function() {
         unmagnify_row(current_row, 400, 0);
         current_row = i;
         move_focus(current_row);
-        move_cursor_button(current_row);
+        move_cursor_buttons(current_row);
         magnify_row(current_row, 400, 0);
         localStorage['resume_data'] = JSON.stringify({ 'row': current_row, 'data': get_data() });
     }
@@ -247,21 +247,11 @@ $(function() {
         case "noedit":
             opt.noedit = true;
             break;
-        case "nomask":
-            opt.nomask = true;
+        case "nofocus":
+            opt.nofocus = true;
             break;
         case "memory":
-            switch (kv[1]) {
-            case 'save':
-                opt.memory = 'save';
-                break;
-            case 'load':
-                opt.memory = 'load';
-                break;
-            case 'clear':
-                opt.memory = 'clear';
-                break;
-            }
+            opt.memory = kv[1].split(',');
             break;
         case "export":
             opt['export'] = true;
@@ -272,7 +262,25 @@ $(function() {
         }
     });
 
-    // create the board
+    // UI
+    // data panel
+    if (opt.memory.indexOf('load') !== -1) {
+        $('#load-panel').css('display', 'block');
+    }
+    if (opt.memory.indexOf('save') !== -1) {
+        $('#save-panel').css('display', 'block');
+    }
+    if (opt.memory.indexOf('export') !== -1) {
+        $('#export-panel').css('display', 'block');
+    }
+    if (opt.memory.indexOf('clear-resume') !== -1) {
+        delete localStorage['resume_data'];
+    }
+    if (opt.memory.indexOf('clear-all') !== -1) {
+        localStorage.clear();
+    }
+
+    // board
     for (var i = 1; i <= 16; ++i) {
         var row = $('<div id="row' + i + '" class="row"></div>');
         for (var j = 1; j <= 16; ++j) {
@@ -285,41 +293,6 @@ $(function() {
         var num_str = (i < 10 ? '0' : '') + i;
         $('<style>#row' + i + ':before { content: "' + num_str + '"; }</style>').appendTo('#board');
     }
-
-    // memory
-    switch (opt.memory) {
-    case 'load':
-        $('#load-panel').css('display', 'block');
-        $('.load-button').each(function() {
-            var n = parseInt($(this).attr("id").slice('load-button'.length));
-            var scale = Math.floor($(this).width() / 16);
-            $(this).css('background-image', 'url(' + make_thumbnail(localStorage[n] || '', scale) + ')');
-        });
-        $('.load-button').on('click', function() {
-            var n = parseInt($(this).attr("id").slice('load-button'.length));
-            set_data(localStorage[n] || '');
-        });
-        break;
-    case 'save':
-        $('#save-panel').css('display', 'block');
-        $('.save-button').each(function() {
-            var n = parseInt($(this).attr("id").slice('save-button'.length));
-            var scale = Math.floor($(this).width() / 16);
-            $(this).css('background-image', 'url(' + make_thumbnail(localStorage[n] || '', scale) + ')');
-        });
-        $('.save-button').on('click', function() {
-            var n = parseInt($(this).attr("id").slice('save-button'.length));
-            var scale = Math.floor($(this).width() / 16);
-            var data = get_data();
-            localStorage[n] = data;
-            $(this).css('background-image', 'url(' + make_thumbnail(data, scale) + ')');
-        });
-        break;
-    case 'clear':
-        localStorage.clear();
-        break;
-    }
-
     if (opt.data !== null) {
         set_data(opt.data);
     }
@@ -327,11 +300,8 @@ $(function() {
         set_data(JSON.parse(localStorage['resume_data']).data);
     }
 
-    if (opt['export']) {
-        $('#export-button').css('display', 'inline-block');
-    }
-
-    if (opt.nomask) {
+    // focus
+    if (opt.nofocus) {
         $('.mask').css('display', 'none');
         $('#prev-button, #next-button').css('display', 'none');
     }
@@ -341,20 +311,48 @@ $(function() {
 
         // initial focus
         if (opt.data !== null) {
-            current_row = opt.row;
+            current_row = opt.row || 1;
         }
         else if (typeof localStorage['resume_data'] !== 'undefined') {
-            current_row = JSON.parse(localStorage['resume_data']).row;
+            current_row = JSON.parse(localStorage['resume_data']).row || 1;
         }
         else {
-            current_row = opt.row;
+            current_row = opt.row || 1;
         }
         move_focus(current_row, 400, 0);
-        move_cursor_button(current_row, 400, 400);
+        move_cursor_buttons(current_row, 400, 400);
         magnify_row(current_row, 400, 400);
     }
 
-    // events
+    // Events
+    // memory management UI
+    $('.load-button').each(function() {
+        var n = parseInt($(this).attr("id").slice('load-button'.length));
+        var scale = Math.floor($(this).width() / 16);
+        $(this).css('background-image', 'url(' + make_thumbnail(localStorage[n] || '', scale) + ')');
+    });
+    $('.load-button').on('click', function() {
+        var n = parseInt($(this).attr("id").slice('load-button'.length));
+        set_data(localStorage[n] || '');
+    });
+    $('.save-button').each(function() {
+        var n = parseInt($(this).attr("id").slice('save-button'.length));
+        var scale = Math.floor($(this).width() / 16);
+        $(this).css('background-image', 'url(' + make_thumbnail(localStorage[n] || '', scale) + ')');
+    });
+    $('.save-button').on('click', function() {
+        var n = parseInt($(this).attr("id").slice('save-button'.length));
+        var scale = Math.floor($(this).width() / 16);
+        var data = get_data();
+        localStorage[n] = data;
+        var thumbnail = make_thumbnail(data, scale)
+        $(this).css('background-image', 'url(' + thumbnail + ')');
+        $('#load-button' + n).css('background-image', 'url(' + thumbnail + ')');
+    });
+    $('#export-button').on('click', function() {
+        export_data();
+    });
+
     if (is_touch_device()) {
         // disable the overscroll effect on touch-capable environments.
         // http://www.html5rocks.com/en/mobile/touch/
@@ -363,7 +361,17 @@ $(function() {
             e.preventDefault();
         });
 
-        if (!opt.nomask) {
+        // data panel
+        $('#pull-button').on('touchstart', function() {
+            var data_panel = $('#data-panel');
+            data_panel.css('transform', 'translate3d(0px, ' + (-data_panel.outerHeight()) + 'px, 0px)');
+        });
+        $('#push-button').on('touchstart', function() {
+            $('#data-panel').css('transform', 'translate3d(0px, 0px, 0px)');
+        });
+
+        // focus
+        if (!opt.nofocus) {
             $('#prev-button').on('touchstart', function() {
                 if (current_row > 1) {
                     select_row(current_row - 1);
@@ -376,6 +384,7 @@ $(function() {
             });
         }
 
+        // panels
         if (!opt.noedit) {
             $(".panel").each(function() {
                 $(this).on('touchstart', on_panel_touchstart);
@@ -385,7 +394,17 @@ $(function() {
         }
     }
     else {
-        if (!opt.nomask) {
+        // data panel
+        $('#pull-button').on('click', function() {
+            var data_panel = $('#data-panel');
+            data_panel.css('transform', 'translate3d(0px, ' + (-data_panel.outerHeight()) + 'px, 0px)');
+        });
+        $('#push-button').on('click', function() {
+            $('#data-panel').css('transform', 'translate3d(0px, 0px, 0px)');
+        });
+
+        // focus
+        if (!opt.nofocus) {
             $('#prev-button').on('click', function() {
                 if (current_row > 1) {
                     select_row(current_row - 1);
@@ -428,6 +447,7 @@ $(function() {
             });
         }
 
+        // panels
         if (!opt.noedit) {
             $(".panel").each(function() {
                 $(this).on('mousedown', on_panel_mousedown);
@@ -435,11 +455,5 @@ $(function() {
                 $(this).on('mouseup', on_panel_mouseup);
             });
         }
-    }
-
-    if (opt['export']) {
-        $('#export-button').on('click', function() {
-            export_data();
-        });
     }
 });
