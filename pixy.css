@@ -144,6 +144,7 @@ body {
 }
 .row.magnified:before {
     color: #ff6600;
+    text-shadow: black 2px 2px 4px;
 }
 .row {
     line-height: 0;  /* don't make space between rows */
