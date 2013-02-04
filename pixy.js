@@ -345,7 +345,9 @@ $(function() {
         var scale = Math.floor($(this).width() / 16);
         var data = get_data();
         localStorage[n] = data;
-        $(this).css('background-image', 'url(' + make_thumbnail(data, scale) + ')');
+        var thumbnail = make_thumbnail(data, scale)
+        $(this).css('background-image', 'url(' + thumbnail + ')');
+        $('#load-button' + n).css('background-image', 'url(' + thumbnail + ')');
     });
     $('#export-button').on('click', function() {
         export_data();
