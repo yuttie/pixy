@@ -355,6 +355,28 @@ $(function() {
         export_data();
     });
 
+    $('#lock-button').on('click', function() {
+        $('#cursor-panel').css('display', 'none');
+        if (!opt.nofocus) {
+            $('.row').removeClass('magnified');
+        }
+        $('#lock').css('display', '');
+
+        $(this).addClass('disabled');
+        $('#unlock-button').removeClass('disabled');
+    });
+
+    $('#unlock-button').on('click', function() {
+        $('#cursor-panel').css('display', '');
+        if (!opt.nofocus) {
+            magnify_row(current_row, 400, 0);
+        }
+        $('#lock').css('display', 'none');
+
+        $(this).addClass('disabled');
+        $('#lock-button').removeClass('disabled');
+    });
+
     if (is_touch_device()) {
         // disable the overscroll effect on touch-capable environments.
         // http://www.html5rocks.com/en/mobile/touch/
