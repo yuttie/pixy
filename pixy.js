@@ -5,7 +5,7 @@ $(function() {
         'row': 1,
         'noedit': false,
         'nomask': false,
-        'memory': null,
+        'memory': [],
         'export': false,
         'data': null
     };
@@ -251,17 +251,7 @@ $(function() {
             opt.nomask = true;
             break;
         case "memory":
-            switch (kv[1]) {
-            case 'save':
-                opt.memory = 'save';
-                break;
-            case 'load':
-                opt.memory = 'load';
-                break;
-            case 'clear':
-                opt.memory = 'clear';
-                break;
-            }
+            opt.memory = kv[1].split(',');
             break;
         case "export":
             opt['export'] = true;
@@ -287,8 +277,7 @@ $(function() {
     }
 
     // memory
-    switch (opt.memory) {
-    case 'load':
+    if (opt.memory.indexOf('load') !== -1) {
         $('#load-panel').css('display', 'block');
         $('.load-button').each(function() {
             var n = parseInt($(this).attr("id").slice('load-button'.length));
@@ -299,8 +288,8 @@ $(function() {
             var n = parseInt($(this).attr("id").slice('load-button'.length));
             set_data(localStorage[n] || '');
         });
-        break;
-    case 'save':
+    }
+    if (opt.memory.indexOf('save') !== -1) {
         $('#save-panel').css('display', 'block');
         $('.save-button').each(function() {
             var n = parseInt($(this).attr("id").slice('save-button'.length));
@@ -314,10 +303,12 @@ $(function() {
             localStorage[n] = data;
             $(this).css('background-image', 'url(' + make_thumbnail(data, scale) + ')');
         });
-        break;
-    case 'clear':
+    }
+    if (opt.memory.indexOf('export') !== -1) {
+        $('#export-panel').css('display', 'block');
+    }
+    if (opt.memory.indexOf('clear') !== -1) {
         localStorage.clear();
-        break;
     }
 
     if (opt.data !== null) {
@@ -325,10 +316,6 @@ $(function() {
     }
     else if (typeof localStorage['resume_data'] !== 'undefined') {
         set_data(JSON.parse(localStorage['resume_data']).data);
-    }
-
-    if (opt['export']) {
-        $('#export-panel').css('display', 'block');
     }
 
     if (opt.nomask) {
