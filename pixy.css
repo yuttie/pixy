@@ -48,16 +48,26 @@
 }
 .panel:before {
     display: block;
+    visibility: hidden;
     position: absolute;
     width: 40px;
     height: 20px;
     top: -22px;
     left: 0;
-    color: transparent;
-    background-color: transparent;
     font-size: 16px;
     line-height: 20px;
     text-align: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #ff6600;
+    text-shadow: black -1px -1px 1px,  /* Add pseudo stroke around text. */
+                 black -1px  0px 1px,
+                 black -1px  1px 1px,
+                 black  0px -1px 1px,
+                 black  0px  0px 1px,
+                 black  0px  1px 1px,
+                 black  1px -1px 1px,
+                 black  1px  0px 1px,
+                 black  1px  1px 1px;
     /* transitions */
     -webkit-transition-property:         background-color, color, text-shadow;
     -moz-transition-property:            background-color, color, text-shadow;
@@ -77,17 +87,7 @@
     transition-delay:                    0s;
 }
 .row.magnified .panel:before {
-    background-color: rgba(255, 255, 255, 0.7);
-    color: #ff6600;
-    text-shadow: black -1px -1px 1px,  /* Add pseudo stroke around text. */
-                 black -1px  0px 1px,
-                 black -1px  1px 1px,
-                 black  0px -1px 1px,
-                 black  0px  0px 1px,
-                 black  0px  1px 1px,
-                 black  1px -1px 1px,
-                 black  1px  0px 1px,
-                 black  1px  1px 1px;
+    visibility: visible;
 }
 .black {
     background-color: black;
