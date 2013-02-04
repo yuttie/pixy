@@ -4,7 +4,7 @@ $(function() {
     var opt = {
         'row': null,
         'noedit': false,
-        'nomask': false,
+        'nofocus': false,
         'memory': [],
         'export': false,
         'data': null
@@ -96,23 +96,23 @@ $(function() {
     function move_focus(i) {
         var row = $('#row' + i);
 
-        var unmasked_top = row.position().top;
-        var unmasked_bottom = unmasked_top + row.outerHeight();
+        var focused_top = row.position().top;
+        var focused_bottom = focused_top + row.outerHeight();
 
         var upper_mask = $('#upper-mask');
         var lower_mask = $('#lower-mask');
-        upper_mask.css('transform', 'translate3d(0px, ' + (unmasked_top - upper_mask.outerHeight()) + 'px, 0px)');
-        lower_mask.css('transform', 'translate3d(0px, ' + unmasked_bottom + 'px, 0px)');
+        upper_mask.css('transform', 'translate3d(0px, ' + (focused_top - upper_mask.outerHeight()) + 'px, 0px)');
+        lower_mask.css('transform', 'translate3d(0px, ' + focused_bottom + 'px, 0px)');
     }
 
-    function move_cursor_button(i) {
+    function move_cursor_buttons(i) {
         var row = $('#row' + i);
 
-        var unmasked_top = row.position().top;
-        var unmasked_bottom = unmasked_top + row.outerHeight();
+        var focused_top = row.position().top;
+        var focused_bottom = focused_top + row.outerHeight();
 
-        var scaled_top = unmasked_top - 0.3 * row.outerHeight() / 2;
-        var scaled_bottom = unmasked_bottom + 0.3 * row.outerHeight() / 2;
+        var scaled_top = focused_top - 0.3 * row.outerHeight() / 2;
+        var scaled_bottom = focused_bottom + 0.3 * row.outerHeight() / 2;
         var scaled_left = -0.3 * row.outerWidth() / 2;
 
         var space = 0;
@@ -121,7 +121,7 @@ $(function() {
         cursor_panel.css('transform',
             'translate3d(' +
                 (scaled_left - 1.3 * 60 / 2 - cursor_panel.outerWidth() / 2) + 'px, ' +
-                (unmasked_top + row.outerHeight() / 2 - cursor_panel.outerHeight() / 2 - space) + 'px, ' +
+                (focused_top + row.outerHeight() / 2 - cursor_panel.outerHeight() / 2 - space) + 'px, ' +
                 '0)');
     }
 
@@ -136,7 +136,7 @@ $(function() {
         unmagnify_row(current_row, 400, 0);
         current_row = i;
         move_focus(current_row);
-        move_cursor_button(current_row);
+        move_cursor_buttons(current_row);
         magnify_row(current_row, 400, 0);
         localStorage['resume_data'] = JSON.stringify({ 'row': current_row, 'data': get_data() });
     }
@@ -247,8 +247,8 @@ $(function() {
         case "noedit":
             opt.noedit = true;
             break;
-        case "nomask":
-            opt.nomask = true;
+        case "nofocus":
+            opt.nofocus = true;
             break;
         case "memory":
             opt.memory = kv[1].split(',');
@@ -300,8 +300,8 @@ $(function() {
         set_data(JSON.parse(localStorage['resume_data']).data);
     }
 
-    // cursor
-    if (opt.nomask) {
+    // focus
+    if (opt.nofocus) {
         $('.mask').css('display', 'none');
         $('#prev-button, #next-button').css('display', 'none');
     }
@@ -320,7 +320,7 @@ $(function() {
             current_row = opt.row || 1;
         }
         move_focus(current_row, 400, 0);
-        move_cursor_button(current_row, 400, 400);
+        move_cursor_buttons(current_row, 400, 400);
         magnify_row(current_row, 400, 400);
     }
 
@@ -368,8 +368,8 @@ $(function() {
             $('#data-panel').css('transform', 'translate3d(0px, 0px, 0px)');
         });
 
-        // cursor
-        if (!opt.nomask) {
+        // focus
+        if (!opt.nofocus) {
             $('#prev-button').on('touchstart', function() {
                 if (current_row > 1) {
                     select_row(current_row - 1);
@@ -401,8 +401,8 @@ $(function() {
             $('#data-panel').css('transform', 'translate3d(0px, 0px, 0px)');
         });
 
-        // cursor
-        if (!opt.nomask) {
+        // focus
+        if (!opt.nofocus) {
             $('#prev-button').on('click', function() {
                 if (current_row > 1) {
                     select_row(current_row - 1);
