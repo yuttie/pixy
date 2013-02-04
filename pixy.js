@@ -365,11 +365,10 @@ $(function() {
 
         // data panel
         $('#pull-bar').on('touchstart', function() {
-            var data_panel = $('#data-panel');
-            data_panel.css('transform', 'translate3d(0px, ' + (-data_panel.outerHeight()) + 'px, 0px)');
+            $('#data-panel').removeClass('hidden');
         });
         $('#push-bar').on('touchstart', function() {
-            $('#data-panel').css('transform', 'translate3d(0px, 0px, 0px)');
+            $('#data-panel').addClass('hidden');
         });
 
         // focus
@@ -398,11 +397,10 @@ $(function() {
     else {
         // data panel
         $('#pull-bar').on('click', function() {
-            var data_panel = $('#data-panel');
-            data_panel.css('transform', 'translate3d(0px, ' + (-data_panel.outerHeight()) + 'px, 0px)');
+            $('#data-panel').removeClass('hidden');
         });
         $('#push-bar').on('click', function() {
-            $('#data-panel').css('transform', 'translate3d(0px, 0px, 0px)');
+            $('#data-panel').addClass('hidden');
         });
 
         // focus
