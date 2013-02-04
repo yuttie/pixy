@@ -432,13 +432,13 @@ $(function() {
                 e.preventDefault();
             });
             $(document).on('keydown', function(e) {
-                switch (e.originalEvent.keyIdentifier) {
-                case 'Down':
+                switch (e.which) {
+                case 40:
                     if (current_row < 16) {
                         select_row(current_row + 1);
                     }
                     break;
-                case 'Up':
+                case 38:
                     if (current_row > 1) {
                         select_row(current_row - 1);
                     }
