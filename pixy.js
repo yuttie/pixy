@@ -402,6 +402,11 @@ $(function() {
         $('#push-bar').on('click', function() {
             $('#data-panel').addClass('hidden');
         });
+        $(document).on('keydown', function(e) {
+            if (e.which === 27) {
+                $('#data-panel').toggleClass('hidden');
+            }
+        });
 
         // focus
         if (!opt.nofocus) {
