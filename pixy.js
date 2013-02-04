@@ -321,8 +321,8 @@ $(function() {
         else {
             current_row = opt.row || 1;
         }
-        move_focus(current_row, 400, 0);
-        move_cursor_buttons(current_row, 400, 400);
+        move_focus(current_row);
+        move_cursor_buttons(current_row);
         magnify_row(current_row, 400, 400);
     }
 
