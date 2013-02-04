@@ -2,7 +2,7 @@ $(function() {
     "use strict";
 
     var opt = {
-        'row': 1,
+        'row': null,
         'noedit': false,
         'nomask': false,
         'memory': [],
@@ -10,7 +10,7 @@ $(function() {
         'data': null
     };
 
-    var current_row = 0;
+    var current_row = null;
     var mouse_tracking;
     var touch_tracking = [];
 
@@ -311,13 +311,13 @@ $(function() {
 
         // initial focus
         if (opt.data !== null) {
-            current_row = opt.row;
+            current_row = opt.row || 1;
         }
         else if (typeof localStorage['resume_data'] !== 'undefined') {
-            current_row = JSON.parse(localStorage['resume_data']).row;
+            current_row = JSON.parse(localStorage['resume_data']).row || 1;
         }
         else {
-            current_row = opt.row;
+            current_row = opt.row || 1;
         }
         move_focus(current_row, 400, 0);
         move_cursor_button(current_row, 400, 400);
