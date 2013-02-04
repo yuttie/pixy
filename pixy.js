@@ -307,7 +307,10 @@ $(function() {
     if (opt.memory.indexOf('export') !== -1) {
         $('#export-panel').css('display', 'block');
     }
-    if (opt.memory.indexOf('clear') !== -1) {
+    if (opt.memory.indexOf('clear-resume') !== -1) {
+        delete localStorage['resume_data'];
+    }
+    if (opt.memory.indexOf('clear-all') !== -1) {
         localStorage.clear();
     }
 
