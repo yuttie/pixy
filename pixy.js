@@ -288,6 +288,8 @@ $(function() {
             var panel = $('<div id="panel' + i + '-' + j + '" class="panel">?</div>');
             panel.appendTo(cell);
             cell.appendTo(row);
+            var col_num_str = (j < 10 ? '0' : '') + j;
+            $('<style>#panel' + i + '-' + j + ':before { content: "' + col_num_str + '"; }</style>').appendTo('head');
         }
         row.appendTo('#board');
         var num_str = (i < 10 ? '0' : '') + i;

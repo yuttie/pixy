@@ -45,6 +45,49 @@
     -o-transition-delay:                 0s;
     transition-delay:                    0s;
 }
+.panel:before {
+    display: block;
+    position: absolute;
+    width: 40px;
+    height: 20px;
+    top: -22px;
+    left: 0;
+    color: transparent;
+    background-color: transparent;
+    font-size: 16px;
+    line-height: 20px;
+    text-align: center;
+    /* transitions */
+    -webkit-transition-property:         background-color, color, text-shadow;
+    -moz-transition-property:            background-color, color, text-shadow;
+    -o-transition-property:              background-color, color, text-shadow;
+    transition-property:                 background-color, color, text-shadow;
+    -webkit-transition-duration:         0.1s;
+    -moz-transition-duration:            0.1s;
+    -o-transition-duration:              0.1s;
+    transition-duration:                 0.1s;
+    -webkit-transition-timing-function:  linear;
+    -moz-transition-timing-function:     linear;
+    -o-transition-timing-function:       linear;
+    transition-timing-function:          linear;
+    -webkit-transition-delay:            0s;
+    -moz-transition-delay:               0s;
+    -o-transition-delay:                 0s;
+    transition-delay:                    0s;
+}
+.row.magnified .panel:before {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #ff6600;
+    text-shadow: black -1px -1px 1px,  /* Add pseudo stroke around text. */
+                 black -1px  0px 1px,
+                 black -1px  1px 1px,
+                 black  0px -1px 1px,
+                 black  0px  0px 1px,
+                 black  0px  1px 1px,
+                 black  1px -1px 1px,
+                 black  1px  0px 1px,
+                 black  1px  1px 1px;
+}
 .black {
     background-color: black;
 }
