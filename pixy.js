@@ -38,6 +38,12 @@ $(function() {
         var li = $('<li/>');
         li.text(msg);
         li.appendTo('#log-panel');
+        setTimeout(function() {
+            li.addClass('hidden');
+            li.on('webkitTransitionEnd oTransitionEnd transitionend', function() {
+                $(this).addClass('disabled');
+            });
+        }, 0);
     }
 
     function get_data() {
