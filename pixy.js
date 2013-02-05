@@ -325,7 +325,7 @@ $(function() {
         $('#save-panel').css('display', 'block');
     }
     if (opt['export']) {
-        $('#export-panel').css('display', 'block');
+        $('#tool-panel').css('display', 'block');
     }
     if (opt.clear === 'resume') {
         delete localStorage['resume_data'];
