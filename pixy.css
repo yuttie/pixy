@@ -253,7 +253,6 @@ body {
     transform:         rotate(180deg);
 }
 #load-panel, #save-panel, #tool-panel {
-    display: none;  /* initially doesn't exist. */
     width: 900px;
     margin: 50px auto;
     background-color: rgba(0, 0, 0, 0.7);

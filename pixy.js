@@ -260,7 +260,7 @@ $(function() {
     }
 
     function lock() {
-        $('#cursor-panel').css('display', 'none');
+        $('#cursor-panel').addClass('disabled');
         if (!opt.nofocus) {
             $('.row').removeClass('magnified');
         }
@@ -275,7 +275,7 @@ $(function() {
     }
 
     function unlock() {
-        $('#cursor-panel').css('display', '');
+        $('#cursor-panel').removeClass('disabled');
         if (!opt.nofocus) {
             magnify_row(current_row, 400, 0);
         }
@@ -327,17 +327,17 @@ $(function() {
     // UI
     // data panel
     if (opt.load) {
-        $('#load-panel').css('display', 'block');
+        $('#load-panel').removeClass('disabled');
     }
     if (opt.save) {
-        $('#save-panel').css('display', 'block');
+        $('#save-panel').removeClass('disabled');
     }
     if (opt['export']) {
-        $('#tool-panel').css('display', 'block');
+        $('#tool-panel').removeClass('disabled');
         $('#export-button').removeClass('disabled');
     }
     if (opt.lock) {
-        $('#tool-panel').css('display', 'block');
+        $('#tool-panel').removeClass('disabled');
         $('#lock-button').removeClass('disabled');
     }
     if (opt.clear === 'resume') {
@@ -371,8 +371,8 @@ $(function() {
 
     // focus
     if (opt.nofocus) {
-        $('.mask').css('display', 'none');
-        $('#prev-button, #next-button').css('display', 'none');
+        $('.mask').addClass('disabled');
+        $('#prev-button, #next-button').addClass('disabled');
     }
     else {
         // masks
