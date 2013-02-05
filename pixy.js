@@ -68,7 +68,11 @@ $(function() {
         else {
             $(panel).addClass("white invisible-text");
         }
-        localStorage['resume_data'] = JSON.stringify({ 'row': current_row, 'data': get_data() });
+        localStorage['resume_data'] = JSON.stringify({
+            'row': current_row,
+            'locked': !$('#lock').hasClass('disabled'),
+            'data': get_data()
+        });
     }
 
     function unmagnify_row(i, duration, delay) {
@@ -150,7 +154,11 @@ $(function() {
         move_focus(current_row);
         move_cursor_buttons(current_row);
         magnify_row(current_row, 400, 0);
-        localStorage['resume_data'] = JSON.stringify({ 'row': current_row, 'data': get_data() });
+        localStorage['resume_data'] = JSON.stringify({
+            'row': current_row,
+            'locked': !$('#lock').hasClass('disabled'),
+            'data': get_data()
+        });
     }
 
     function on_panel_mousedown(e) {
@@ -257,6 +265,12 @@ $(function() {
 
         $('#lock-button').addClass('disabled');
         $('#unlock-button').removeClass('disabled');
+
+        localStorage['resume_data'] = JSON.stringify({
+            'row': current_row,
+            'locked': !$('#lock').hasClass('disabled'),
+            'data': get_data()
+        });
     }
 
     function unlock() {
@@ -268,6 +282,12 @@ $(function() {
 
         $('#unlock-button').addClass('disabled');
         $('#lock-button').removeClass('disabled');
+
+        localStorage['resume_data'] = JSON.stringify({
+            'row': current_row,
+            'locked': !$('#lock').hasClass('disabled'),
+            'data': get_data()
+        });
     }
 
     // process options
@@ -358,6 +378,16 @@ $(function() {
         move_focus(current_row);
         move_cursor_buttons(current_row);
         magnify_row(current_row, 400, 0);
+    }
+
+    // lock
+    if (typeof localStorage['resume_data'] !== 'undefined') {
+        if (JSON.parse(localStorage['resume_data']).locked) {
+            lock();
+        }
+        else {
+            unlock();
+        }
     }
 
     // Events
