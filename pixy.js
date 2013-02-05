@@ -444,6 +444,11 @@ $(function() {
             e.preventDefault();
         });
 
+        // log-panel
+        $('#log-panel').on('touchstart', function() {
+            $(this).toggleClass('top-most');
+        });
+
         // data panel
         $('#pull-bar').on('touchstart', function() {
             $('#data-panel').removeClass('hidden');
@@ -476,6 +481,11 @@ $(function() {
         }
     }
     else {
+        // log-panel
+        $('#log-panel').on('click', function() {
+            $(this).toggleClass('top-most');
+        });
+
         // data panel
         $('#pull-bar').on('click', function() {
             $('#data-panel').removeClass('hidden');
