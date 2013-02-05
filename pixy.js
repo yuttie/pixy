@@ -23,6 +23,12 @@ $(function() {
             || !!('onmsgesturechange' in window); // works on ie10
     }
 
+    function log(msg) {
+        var li = $('<li/>');
+        li.text(msg);
+        li.appendTo('#log-panel');
+    }
+
     function get_data() {
         var data = "";
         for (var i = 1; i <= 16; ++i) {
