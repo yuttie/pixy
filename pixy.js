@@ -8,6 +8,7 @@ $(function() {
         'load': false,
         'save': false,
         'export': false,
+        'lock': false,
         'clear': false,
         'data': null
     };
@@ -265,8 +266,10 @@ $(function() {
         }
         $('#lock').removeClass('disabled');
 
-        $('#lock-button').addClass('disabled');
-        $('#unlock-button').removeClass('disabled');
+        if (opt.lock) {
+            $('#lock-button').addClass('disabled');
+            $('#unlock-button').removeClass('disabled');
+        }
 
         save_state();
     }
@@ -278,8 +281,10 @@ $(function() {
         }
         $('#lock').addClass('disabled');
 
-        $('#unlock-button').addClass('disabled');
-        $('#lock-button').removeClass('disabled');
+        if (opt.lock) {
+            $('#unlock-button').addClass('disabled');
+            $('#lock-button').removeClass('disabled');
+        }
 
         save_state();
     }
@@ -307,6 +312,9 @@ $(function() {
         case "export":
             opt['export'] = true;
             break;
+        case "lock":
+            opt.lock = true;
+            break;
         case "clear":
             opt.clear = kv[1];
             break;
@@ -326,6 +334,11 @@ $(function() {
     }
     if (opt['export']) {
         $('#tool-panel').css('display', 'block');
+        $('#export-button').removeClass('disabled');
+    }
+    if (opt.lock) {
+        $('#tool-panel').css('display', 'block');
+        $('#lock-button').removeClass('disabled');
     }
     if (opt.clear === 'resume') {
         delete localStorage['resume_data'];
