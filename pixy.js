@@ -123,6 +123,18 @@ $(function() {
                 (scaled_left - 1.3 * 60 / 2 - cursor_panel.outerWidth() / 2) + 'px, ' +
                 (focused_top + row.outerHeight() / 2 - cursor_panel.outerHeight() / 2 - space) + 'px, ' +
                 '0)');
+        if (current_row === 1) {
+            $('#prev-button').addClass('disabled');
+        }
+        else {
+            $('#prev-button').removeClass('disabled');
+        }
+        if (current_row === 16) {
+            $('#next-button').addClass('disabled');
+        }
+        else {
+            $('#next-button').removeClass('disabled');
+        }
     }
 
     function initialize_mask_transformations() {
