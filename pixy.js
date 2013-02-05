@@ -348,9 +348,11 @@ $(function() {
     }
     if (opt.clear === 'resume') {
         delete localStorage['resume_data'];
+        log('再開用のメモリーを消去しました。');
     }
     if (opt.clear === 'all') {
         localStorage.clear();
+        log('全てのメモリーを消去しました。');
     }
 
     // board
