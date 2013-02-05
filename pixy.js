@@ -5,8 +5,10 @@ $(function() {
         'row': null,
         'noedit': false,
         'nofocus': false,
-        'memory': [],
+        'load': false,
+        'save': false,
         'export': false,
+        'clear': false,
         'data': null
     };
 
@@ -296,11 +298,17 @@ $(function() {
         case "nofocus":
             opt.nofocus = true;
             break;
-        case "memory":
-            opt.memory = kv[1].split(',');
+        case "load":
+            opt.load = true;
+            break;
+        case "save":
+            opt.save = true;
             break;
         case "export":
             opt['export'] = true;
+            break;
+        case "clear":
+            opt.clear = kv[1];
             break;
         case "data":
             opt.data = kv[1];
@@ -310,19 +318,19 @@ $(function() {
 
     // UI
     // data panel
-    if (opt.memory.indexOf('load') !== -1) {
+    if (opt.load) {
         $('#load-panel').css('display', 'block');
     }
-    if (opt.memory.indexOf('save') !== -1) {
+    if (opt.save) {
         $('#save-panel').css('display', 'block');
     }
-    if (opt.memory.indexOf('export') !== -1) {
+    if (opt['export']) {
         $('#export-panel').css('display', 'block');
     }
-    if (opt.memory.indexOf('clear-resume') !== -1) {
+    if (opt.clear === 'resume') {
         delete localStorage['resume_data'];
     }
-    if (opt.memory.indexOf('clear-all') !== -1) {
+    if (opt.clear === 'all') {
         localStorage.clear();
     }
 
