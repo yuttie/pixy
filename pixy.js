@@ -372,7 +372,7 @@ $(function() {
         if (!opt.nofocus) {
             $('.row').removeClass('magnified');
         }
-        $('#lock').css('display', '');
+        $('#lock').removeClass('disabled');
 
         $(this).addClass('disabled');
         $('#unlock-button').removeClass('disabled');
@@ -383,7 +383,7 @@ $(function() {
         if (!opt.nofocus) {
             magnify_row(current_row, 400, 0);
         }
-        $('#lock').css('display', 'none');
+        $('#lock').addClass('disabled');
 
         $(this).addClass('disabled');
         $('#lock-button').removeClass('disabled');
