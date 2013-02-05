@@ -364,6 +364,7 @@ $(function() {
     }
     if (opt.data !== null) {
         set_data(opt.data);
+        save_state();
     }
     else if (typeof localStorage['resume_data'] !== 'undefined') {
         set_data(JSON.parse(localStorage['resume_data']).data);
@@ -413,6 +414,7 @@ $(function() {
     $('.load-button').on('click', function() {
         var n = parseInt($(this).attr("id").slice('load-button'.length));
         set_data(localStorage[n] || '');
+        save_state();
     });
     $('.save-button').each(function() {
         var n = parseInt($(this).attr("id").slice('save-button'.length));
