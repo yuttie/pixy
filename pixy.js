@@ -248,6 +248,28 @@ $(function() {
         return canvas[0].toDataURL();
     }
 
+    function lock() {
+        $('#cursor-panel').css('display', 'none');
+        if (!opt.nofocus) {
+            $('.row').removeClass('magnified');
+        }
+        $('#lock').removeClass('disabled');
+
+        $('#lock-button').addClass('disabled');
+        $('#unlock-button').removeClass('disabled');
+    }
+
+    function unlock() {
+        $('#cursor-panel').css('display', '');
+        if (!opt.nofocus) {
+            magnify_row(current_row, 400, 0);
+        }
+        $('#lock').addClass('disabled');
+
+        $('#unlock-button').addClass('disabled');
+        $('#lock-button').removeClass('disabled');
+    }
+
     // process options
     $.each(window.location.search.slice(1).split("&"), function(_, param) {
         var kv = param.split("=");
@@ -366,28 +388,8 @@ $(function() {
     $('#export-button').on('click', function() {
         export_data();
     });
-
-    $('#lock-button').on('click', function() {
-        $('#cursor-panel').css('display', 'none');
-        if (!opt.nofocus) {
-            $('.row').removeClass('magnified');
-        }
-        $('#lock').removeClass('disabled');
-
-        $(this).addClass('disabled');
-        $('#unlock-button').removeClass('disabled');
-    });
-
-    $('#unlock-button').on('click', function() {
-        $('#cursor-panel').css('display', '');
-        if (!opt.nofocus) {
-            magnify_row(current_row, 400, 0);
-        }
-        $('#lock').addClass('disabled');
-
-        $(this).addClass('disabled');
-        $('#lock-button').removeClass('disabled');
-    });
+    $('#lock-button').on('click', lock);
+    $('#unlock-button').on('click', unlock);
 
     if (is_touch_device()) {
         // disable the overscroll effect on touch-capable environments.
