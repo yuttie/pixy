@@ -12,6 +12,7 @@ $(function() {
     };
 
     var opt = {
+        'title': null,
         'row': null,
         'noedit': false,
         'nofocus': false,
@@ -317,6 +318,9 @@ $(function() {
         var kv = param.split("=");
 
         switch (kv[0]) {
+        case "title":
+            opt.title = decodeURIComponent(kv[1]);
+            break;
         case "row":
             opt.row = parseInt(kv[1]);
             break;
@@ -357,6 +361,10 @@ $(function() {
     });
 
     // UI
+    // title
+    if (opt.title) {
+        $('head > title').text(opt.title);
+    }
     // data panel
     if (opt.load) {
         $('#load-panel').removeClass('disabled');
