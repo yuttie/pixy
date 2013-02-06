@@ -123,6 +123,7 @@ body {
 }
 #hcentering {
     position: relative;
+    z-index: 10;
     height: 100%;
     /* center the content horizontally */
     width: 640px;  /* total width of 16 panels with 40px width */
@@ -140,7 +141,6 @@ body {
 #view, #mask-window {
     /* put them at the same position with the same size */
     position: absolute;
-    z-index: 10;
     width: 100%;
     height: 100%;
 }
