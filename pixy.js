@@ -349,6 +349,8 @@ $(function() {
         case "data":
             opt.data = kv[1];
             break;
+        default:
+            log('未知のオプションです: "' + kv[0] + '=' + kv[1] + '"');
         }
     });
 
