@@ -140,10 +140,11 @@ $(function() {
 
         var focused_top = row.position().top;
         var focused_bottom = focused_top + row.outerHeight();
+        var focused_left = 0;
 
-        var scaled_top = focused_top - 0.3 * row.outerHeight() / 2;
+        var scaled_top    = focused_top    - 0.3 * row.outerHeight() / 2;
         var scaled_bottom = focused_bottom + 0.3 * row.outerHeight() / 2;
-        var scaled_left = -0.3 * row.outerWidth() / 2;
+        var scaled_left   = focused_left   - 0.3 * row.outerWidth()  / 2;
 
         var space = 0;
 
