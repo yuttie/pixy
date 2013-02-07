@@ -286,7 +286,8 @@ $(function() {
     function lock() {
         $('#cursor-panel').addClass('disabled');
         if (!opt.nofocus) {
-            $('.row').removeClass('magnified');
+            var row = $('#row' + current_row);
+            row.removeClass('magnified');
         }
         $('#lock').removeClass('disabled');
 
