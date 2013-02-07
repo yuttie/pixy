@@ -165,7 +165,7 @@ $(function() {
         $('#lower-mask').css('transform', 'translate3d(0px, ' + board_height + 'px, 0px)');
     }
 
-    function select_row(i) {
+    function focus_row(i) {
         unmagnify_row(current_row);
         current_row = i;
         move_masks(current_row);
@@ -500,12 +500,12 @@ $(function() {
         if (!opt.nofocus) {
             $('#prev-button').on('touchstart', function() {
                 if (current_row > 1) {
-                    select_row(current_row - 1);
+                    focus_row(current_row - 1);
                 }
             });
             $('#next-button').on('touchstart', function() {
                 if (current_row < 16) {
-                    select_row(current_row + 1);
+                    focus_row(current_row + 1);
                 }
             });
         }
@@ -542,12 +542,12 @@ $(function() {
         if (!opt.nofocus) {
             $('#prev-button').on('click', function() {
                 if (current_row > 1) {
-                    select_row(current_row - 1);
+                    focus_row(current_row - 1);
                 }
             });
             $('#next-button').on('click', function() {
                 if (current_row < 16) {
-                    select_row(current_row + 1);
+                    focus_row(current_row + 1);
                 }
             });
             $(document).on('wheel mousewheel DOMMouseScroll', function(e) {
@@ -556,12 +556,12 @@ $(function() {
                           || -e.originalEvent.wheelDelta;  // other's mousewheel event
                 if (delta > 0) {
                     if (current_row < 16) {
-                        select_row(current_row + 1);
+                        focus_row(current_row + 1);
                     }
                 }
                 else if (delta < 0) {
                     if (current_row > 1) {
-                        select_row(current_row - 1);
+                        focus_row(current_row - 1);
                     }
                 }
                 e.preventDefault();
@@ -570,12 +570,12 @@ $(function() {
                 switch (e.which) {
                 case 40:
                     if (current_row < 16) {
-                        select_row(current_row + 1);
+                        focus_row(current_row + 1);
                     }
                     break;
                 case 38:
                     if (current_row > 1) {
-                        select_row(current_row - 1);
+                        focus_row(current_row - 1);
                     }
                     break;
                 }
