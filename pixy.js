@@ -106,6 +106,14 @@ $(function() {
         save_state();
     }
 
+    function unselect_row(i) {
+        $('#row' + i).removeClass('selected');
+    }
+
+    function select_row(i) {
+        $('#row' + i).addClass('selected');
+    }
+
     function unmagnify_row(i) {
         $('#row' + i).removeClass('magnified');
     }
@@ -165,12 +173,22 @@ $(function() {
         $('#lower-mask').css('transform', 'translate3d(0px, ' + board_height + 'px, 0px)');
     }
 
+    function unfocus_row(i) {
+        unselect_row(i);
+        unmagnify_row(i);
+    }
+
     function focus_row(i) {
-        unmagnify_row(current_row);
+        move_masks(i);
+        move_cursor_buttons(i);
+        select_row(i);
+        magnify_row(i);
+    }
+
+    function move_focus(i) {
+        unfocus_row(current_row);
         current_row = i;
-        move_masks(current_row);
-        move_cursor_buttons(current_row);
-        magnify_row(current_row);
+        focus_row(current_row);
         save_state();
     }
 
@@ -272,8 +290,7 @@ $(function() {
     function lock() {
         $('#cursor-panel').addClass('disabled');
         if (!opt.nofocus) {
-            var row = $('#row' + current_row);
-            row.removeClass('magnified');
+            unfocus_row(current_row);
         }
         $('#lock').removeClass('disabled');
 
@@ -288,7 +305,7 @@ $(function() {
     function unlock() {
         $('#cursor-panel').removeClass('disabled');
         if (!opt.nofocus) {
-            magnify_row(current_row);
+            focus_row(current_row);
         }
         $('#lock').addClass('disabled');
 
@@ -428,9 +445,7 @@ $(function() {
         else {
             current_row = opt.row || 1;
         }
-        move_masks(current_row);
-        move_cursor_buttons(current_row);
-        magnify_row(current_row);
+        focus_row(current_row);
     }
 
     // lock
@@ -500,12 +515,12 @@ $(function() {
         if (!opt.nofocus) {
             $('#prev-button').on('touchstart', function() {
                 if (current_row > 1) {
-                    focus_row(current_row - 1);
+                    move_focus(current_row - 1);
                 }
             });
             $('#next-button').on('touchstart', function() {
                 if (current_row < 16) {
-                    focus_row(current_row + 1);
+                    move_focus(current_row + 1);
                 }
             });
         }
@@ -542,12 +557,12 @@ $(function() {
         if (!opt.nofocus) {
             $('#prev-button').on('click', function() {
                 if (current_row > 1) {
-                    focus_row(current_row - 1);
+                    move_focus(current_row - 1);
                 }
             });
             $('#next-button').on('click', function() {
                 if (current_row < 16) {
-                    focus_row(current_row + 1);
+                    move_focus(current_row + 1);
                 }
             });
             $(document).on('wheel mousewheel DOMMouseScroll', function(e) {
@@ -556,12 +571,12 @@ $(function() {
                           || -e.originalEvent.wheelDelta;  // other's mousewheel event
                 if (delta > 0) {
                     if (current_row < 16) {
-                        focus_row(current_row + 1);
+                        move_focus(current_row + 1);
                     }
                 }
                 else if (delta < 0) {
                     if (current_row > 1) {
-                        focus_row(current_row - 1);
+                        move_focus(current_row - 1);
                     }
                 }
                 e.preventDefault();
@@ -570,12 +585,12 @@ $(function() {
                 switch (e.which) {
                 case 40:
                     if (current_row < 16) {
-                        focus_row(current_row + 1);
+                        move_focus(current_row + 1);
                     }
                     break;
                 case 38:
                     if (current_row > 1) {
-                        focus_row(current_row - 1);
+                        move_focus(current_row - 1);
                     }
                     break;
                 }
