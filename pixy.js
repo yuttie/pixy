@@ -444,6 +444,10 @@ $(function() {
         set_data(JSON.parse(localStorage['resume_data']).data);
     }
 
+    if (!opt.nomag) {
+        $('.row').addClass('animated');
+    }
+
     // focus
     if (opt.nofocus) {
         $('.mask').addClass('disabled');
