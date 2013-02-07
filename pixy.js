@@ -461,9 +461,6 @@ $(function() {
         if (JSON.parse(localStorage['resume_data']).locked) {
             lock();
         }
-        else {
-            unlock();
-        }
     }
 
     // Events
