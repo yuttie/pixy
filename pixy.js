@@ -13,6 +13,7 @@ $(function() {
 
     var opt = {
         'title': null,
+        'icon': null,
         'row': null,
         'noedit': false,
         'nofocus': false,
@@ -340,6 +341,9 @@ $(function() {
         case "title":
             opt.title = decodeURIComponent(kv[1]);
             break;
+        case "icon":
+            opt.icon = decodeURIComponent(kv[1]);
+            break;
         case "row":
             opt.row = parseInt(kv[1]);
             break;
@@ -386,6 +390,10 @@ $(function() {
     // title
     if (opt.title) {
         $('head > title').text(opt.title);
+    }
+    // icon
+    if (opt.icon) {
+        $('<link rel="apple-touch-icon" href="' + opt.icon + '">').appendTo('head');
     }
     // data panel
     if (opt.load) {
