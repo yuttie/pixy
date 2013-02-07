@@ -150,7 +150,7 @@ $(function() {
         var cursor_panel = $('#cursor-panel');
         cursor_panel.css('transform',
             'translate3d(' +
-                (scaled_left - 1.3 * 60 / 2 - cursor_panel.outerWidth() / 2) + 'px, ' +
+                (scaled_left - 1.3 * 80 / 2 - cursor_panel.outerWidth() / 2) + 'px, ' +
                 (focused_top + row.outerHeight() / 2 - cursor_panel.outerHeight() / 2 - space) + 'px, ' +
                 '0)');
         if (i === 1) {
