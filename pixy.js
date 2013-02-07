@@ -106,26 +106,12 @@ $(function() {
         save_state();
     }
 
-    function unmagnify_row(i, duration, delay) {
-        duration /= 1000;
-        delay /= 1000;
-        var row = $('#row' + i);
-        row.css({
-            'transition-duration': '0.001s, ' + duration + 's, ' + duration + 's, ' + duration + 's, ' + duration + 's',
-            'transition-delay': delay + 's'
-        });
-        row.removeClass('magnified');
+    function unmagnify_row(i) {
+        $('#row' + i).removeClass('magnified');
     }
 
-    function magnify_row(i, duration, delay) {
-        duration /= 1000;
-        delay /= 1000;
-        var row = $('#row' + i);
-        row.css({
-            'transition-duration': '0.001s, ' + duration + 's, ' + duration + 's, ' + duration + 's, ' + duration + 's',
-            'transition-delay': delay + 's'
-        });
-        row.addClass('magnified');
+    function magnify_row(i) {
+        $('#row' + i).addClass('magnified');
     }
 
     function move_focus(i) {
@@ -180,11 +166,11 @@ $(function() {
     }
 
     function select_row(i) {
-        unmagnify_row(current_row, 400, 0);
+        unmagnify_row(current_row);
         current_row = i;
         move_focus(current_row);
         move_cursor_buttons(current_row);
-        magnify_row(current_row, 400, 0);
+        magnify_row(current_row);
         save_state();
     }
 
@@ -302,7 +288,7 @@ $(function() {
     function unlock() {
         $('#cursor-panel').removeClass('disabled');
         if (!opt.nofocus) {
-            magnify_row(current_row, 400, 0);
+            magnify_row(current_row);
         }
         $('#lock').addClass('disabled');
 
@@ -444,7 +430,7 @@ $(function() {
         }
         move_focus(current_row);
         move_cursor_buttons(current_row);
-        magnify_row(current_row, 400, 0);
+        magnify_row(current_row);
     }
 
     // lock

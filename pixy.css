@@ -184,6 +184,10 @@ body {
     -moz-transition-property:            z-index, -moz-box-shadow, -moz-transform;
     -o-transition-property:              z-index, box-shadow, -o-transform;
     transition-property:                 z-index, box-shadow, transform, -webkit-transform, -moz-transform, -o-transform;
+    -webkit-transition-duration:         0.4s;
+    -moz-transition-duration:            0.4s;
+    -o-transition-duration:              0.4s;
+    transition-duration:                 0.4s;
     -webkit-transition-timing-function:  ease;
     -moz-transition-timing-function:     ease;
     -o-transition-timing-function:       ease;
