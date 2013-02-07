@@ -16,6 +16,7 @@ $(function() {
         'row': null,
         'noedit': false,
         'nofocus': false,
+        'nomag': false,
         'load': false,
         'save': false,
         'export': false,
@@ -175,14 +176,18 @@ $(function() {
 
     function unfocus_row(i) {
         unselect_row(i);
-        unmagnify_row(i);
+        if (!opt.nomag) {
+            unmagnify_row(i);
+        }
     }
 
     function focus_row(i) {
         move_masks(i);
         move_cursor_buttons(i);
         select_row(i);
-        magnify_row(i);
+        if (!opt.nomag) {
+            magnify_row(i);
+        }
     }
 
     function move_focus(i) {
@@ -333,6 +338,9 @@ $(function() {
             break;
         case "nofocus":
             opt.nofocus = true;
+            break;
+        case "nomag":
+            opt.nomag = true;
             break;
         case "load":
             opt.load = true;
