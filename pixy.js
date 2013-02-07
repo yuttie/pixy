@@ -399,6 +399,7 @@ $(function() {
 
     // board
     for (var i = 1; i <= 16; ++i) {
+        var row_holder = $('<div class="row-holder"></div>');
         var row = $('<div id="row' + i + '" class="row"></div>');
         for (var j = 1; j <= 16; ++j) {
             var cell = $('<div id="cell' + i + '-' + j + '" class="cell"></div>');
@@ -408,7 +409,8 @@ $(function() {
             var col_num_str = (j < 10 ? '0' : '') + j;
             $('<style>#panel' + i + '-' + j + ':before { content: "' + col_num_str + '"; }</style>').appendTo('head');
         }
-        row.appendTo('#board');
+        row.appendTo(row_holder);
+        row_holder.appendTo('#board');
         var num_str = (i < 10 ? '0' : '') + i;
         $('<style>#row' + i + ':before { content: "' + num_str + '"; }</style>').appendTo('head');
     }
