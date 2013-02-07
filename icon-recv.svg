@@ -15,7 +15,7 @@
    id="svg2985"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="icon-send.svg">
+   sodipodi:docname="icon-recv.svg">
   <defs
      id="defs2987">
     <linearGradient
@@ -68,15 +68,15 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="5.5"
-     inkscape:cx="16.932106"
-     inkscape:cy="23.266522"
+     inkscape:zoom="3.8890873"
+     inkscape:cx="-12.804209"
+     inkscape:cy="29.181071"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:document-units="px"
      inkscape:grid-bbox="true"
      inkscape:window-width="1148"
-     inkscape:window-height="1170"
+     inkscape:window-height="523"
      inkscape:window-x="0"
      inkscape:window-y="26"
      inkscape:window-maximized="0" />
@@ -88,7 +88,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -119,17 +119,17 @@
     </g>
     <g
        id="g3047"
-       transform="matrix(-1,0,0,-1,92.613636,67.090909)"
+       transform="matrix(-1,0,0,1,94.509204,-3.090909)"
        style="fill:#00ff00">
       <path
          sodipodi:nodetypes="ccccccc"
          inkscape:connector-curvature="0"
          id="rect3007"
-         d="m 35.088068,22.622159 7.15625,12.46875 -7.15625,12.46875 3.3125,0 7.125,-12.46875 -7.125,-12.46875 z"
+         d="m 35.088066,22.622159 7.15625,12.46875 -7.15625,12.46875 3.3125,0 7.125,-12.46875 -7.125,-12.46875 z"
          style="fill:#00ff00;fill-opacity:1;stroke:none" />
       <path
          style="fill:#00ff00;fill-opacity:1;stroke:none"
-         d="m 41.088068,22.622159 7.15625,12.46875 -7.15625,12.46875 3.3125,0 7.125,-12.46875 -7.125,-12.46875 z"
+         d="m 39.419445,18.881534 9.303125,16.209375 -9.303125,16.209375 4.30625,0 9.2625,-16.209375 -9.2625,-16.209375 z"
          id="path3024"
          inkscape:connector-curvature="0"
          sodipodi:nodetypes="ccccccc" />
@@ -137,7 +137,7 @@
          sodipodi:nodetypes="ccccccc"
          inkscape:connector-curvature="0"
          id="path3026"
-         d="m 47.088068,22.622159 7.15625,12.46875 -7.15625,12.46875 3.3125,0 7.125,-12.46875 -7.125,-12.46875 z"
+         d="m 44.721138,15.140909 11.45,19.95 -11.45,19.95 5.3,0 11.4,-19.95 -11.4,-19.95 z"
          style="fill:#00ff00;fill-opacity:1;stroke:none" />
     </g>
   </g>
