@@ -114,7 +114,7 @@ $(function() {
         $('#row' + i).addClass('magnified');
     }
 
-    function move_focus(i) {
+    function move_masks(i) {
         var row = $('#row' + i);
 
         var focused_top = row.position().top;
@@ -168,7 +168,7 @@ $(function() {
     function select_row(i) {
         unmagnify_row(current_row);
         current_row = i;
-        move_focus(current_row);
+        move_masks(current_row);
         move_cursor_buttons(current_row);
         magnify_row(current_row);
         save_state();
@@ -428,7 +428,7 @@ $(function() {
         else {
             current_row = opt.row || 1;
         }
-        move_focus(current_row);
+        move_masks(current_row);
         move_cursor_buttons(current_row);
         magnify_row(current_row);
     }
