@@ -459,7 +459,7 @@ $(function() {
     // focus
     if (opt.nofocus) {
         $('.mask').addClass('disabled');
-        $('#prev-button, #next-button').addClass('disabled');
+        $('#cursor-panel').addClass('disabled');
     }
     else {
         // masks
