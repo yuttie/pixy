@@ -99,11 +99,16 @@ $(function() {
     }
 
     function toggle_panel_color(panel) {
-        if ($(panel).hasClass("black") || $(panel).hasClass("white")) {
-            $(panel).toggleClass("black white");
+        if (mouse_tracking.initial_panel_color == "black") {
+            $(panel).removeClass("black");
+            $(panel).addClass("white invisible-text");
+        }
+        else if (mouse_tracking.initial_panel_color == "white") {
+            $(panel).removeClass("white");
+            $(panel).addClass("black invisible-text");
         }
         else {
-            $(panel).addClass("white invisible-text");
+            console.log("Error: toggle_panel_color: unexpected initial panel color \"" + mouse_tracking.initial_panel_color + "\".");
         }
         save_state();
     }
@@ -209,7 +214,10 @@ $(function() {
     }
 
     function on_panel_mousedown(e) {
-        mouse_tracking = { target: this };
+        mouse_tracking = {
+            target: this,
+            initial_panel_color: $(this).hasClass("white") ? "white" : "black"
+        };
         toggle_panel_color(this);
     }
 
