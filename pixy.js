@@ -98,17 +98,17 @@ $(function() {
         });
     }
 
-    function toggle_panel_color(panel) {
-        if (mouse_tracking.initial_panel_color == "black") {
+    function change_panel_color(panel, color) {
+        if (color == "black") {
             $(panel).removeClass("black");
             $(panel).addClass("white invisible-text");
         }
-        else if (mouse_tracking.initial_panel_color == "white") {
+        else if (color == "white") {
             $(panel).removeClass("white");
             $(panel).addClass("black invisible-text");
         }
         else {
-            console.log("Error: toggle_panel_color: unexpected initial panel color \"" + mouse_tracking.initial_panel_color + "\".");
+            console.log("Error: change_panel_color: unexpected color \"" + color + "\".");
         }
         save_state();
     }
@@ -218,12 +218,12 @@ $(function() {
             target: this,
             initial_panel_color: $(this).hasClass("white") ? "white" : "black"
         };
-        toggle_panel_color(this);
+        change_panel_color(this, mouse_tracking.initial_panel_color);
     }
 
     function on_panel_mousemove(e) {
         if (mouse_tracking && mouse_tracking.target !== this) {
-            toggle_panel_color(this);
+            change_panel_color(this, mouse_tracking.initial_panel_color);
             mouse_tracking.target = this;
         }
     }
@@ -236,8 +236,11 @@ $(function() {
         $.each(e.originalEvent.changedTouches, function(_, t) {
             var target = document.elementFromPoint(t.clientX, t.clientY);
             if ($(target).hasClass('panel')) {
-                touch_tracking[t.identifier] = { target: target };
-                toggle_panel_color(target);
+                touch_tracking[t.identifier] = {
+                    target: target,
+                    initial_panel_color: $(target).hasClass("white") ? "white" : "black"
+                };
+                change_panel_color(target, touch_tracking[t.identifier].initial_panel_color);
             }
         });
     }
@@ -247,7 +250,7 @@ $(function() {
             var target = document.elementFromPoint(t.clientX, t.clientY);
             if ($(target).hasClass('panel')) {
                 if (touch_tracking[t.identifier] && touch_tracking[t.identifier].target !== target) {
-                    toggle_panel_color(target);
+                    change_panel_color(target, touch_tracking[t.identifier].initial_panel_color);
                     touch_tracking[t.identifier].target = target;
                 }
             }
