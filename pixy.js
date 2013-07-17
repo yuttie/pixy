@@ -2,13 +2,13 @@ $(function() {
     "use strict";
 
     var preset_data = {
-        'bird':     '0000000000000000000111000000000000100010000001100110101000011010111000100110001000111111100001000001000000001110001001000011001000100011110001000001000000011000000011111110000000000010010000000000001001000000000011101100000000000110011000000000101010100000',
-        'boy':      '0000000011110000000011111111110000011111111111101111111111111110010000100011111100111100000011110001000000000111000100100010011000100010101000100010000000000010000100100010010000010001110001000000100000001000000001100011000000000101110100000000100000001000',
-        'cherry':   '0000011111000000000010000010110000010001111100100000110001110010000000111010010000000001001100100000001000101110000001000010000000001000001000000011110000111000010011000101010010110010100110101001101010110010100000101000001001000100010001000011100000111000',
-        'dog':      '0001100000110000001111000111100001111111111111001111110001111110111111000111111011111000001111101111000000011110011000000000110001001000001001000100101110100100010000010000010001000001000001000100010101000100001000101000100000010000000100000000111111100000',
-        'fish':     '0000000000111100000000001100010000000011010010000000010101001000000010010101001100010001010101010010000101011001010010010101000101001001010100010010000101011001000100010101010100001001010100110000010101001000000000110100100000000000110001000000000000111100',
-        'onepiece': '0001100000001100001111000001111000111111111111100001110010011100000011000001100000000110001100000000011101110000000001111111000000001000000010000001010101010100001010101010101001010101010101010110101010101011010101010101010100100110011001100001100110011000',
-        'rabbit':   '0011000000011000010010000010010001001000001001000100010001000100001001000100100000010010100100000000101110100000000100000001000000100000000010000010010001001000001000010000100000100000000010000010001110001000000100000001000000001000001000000000011111000000'
+        'bird':     [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,1,1,0,0,1,1,0,1,0,1,0,0,0,0,1,1,0,1,0,1,1,1,0,0,0,1,0,0,1,1,0,0,0,1,0,0,0,1,1,1,1,1,1,1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,0,0,1,0,0,0,0,1,1,0,0,1,0,0,0,1,0,0,0,1,1,1,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,1,0,1,0,1,0,0,0,0,0],
+        'boy':      [0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,0,0,0,0,1,0,0,0,1,1,1,1,1,1,0,0,1,1,1,1,0,0,0,0,0,0,1,1,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,1,0,0,1,0,0,0,1,0,0,1,1,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,1,1,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0,1,1,1,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0],
+        'cherry':   [0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,1,1,0,0,0,0,0,1,0,0,0,1,1,1,1,1,0,0,1,0,0,0,0,0,1,1,0,0,0,1,1,1,0,0,1,0,0,0,0,0,0,0,1,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,1,1,0,0,1,0,0,0,0,0,0,0,1,0,0,0,1,0,1,1,1,0,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,1,1,1,0,0,0,0,1,0,0,1,1,0,0,0,1,0,1,0,1,0,0,1,0,1,1,0,0,1,0,1,0,0,1,1,0,1,0,1,0,0,1,1,0,1,0,1,0,1,1,0,0,1,0,1,0,0,0,0,0,1,0,1,0,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1,1,1,0,0,0,0,0,1,1,1,0,0,0],
+        'dog':      [0,0,0,1,1,0,0,0,0,0,1,1,0,0,0,0,0,0,1,1,1,1,0,0,0,1,1,1,1,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,1,1,1,1,1,1,0,0,0,1,1,1,1,1,1,0,1,1,1,1,1,0,0,0,0,0,1,1,1,1,1,0,1,1,1,1,0,0,0,0,0,0,0,1,1,1,1,0,0,1,1,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,1,0,0,1,0,1,1,1,0,1,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0],
+        'fish':     [0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,0,0,1,0,0,1,0,1,0,1,0,0,1,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,0,1,0,0,0,0,1,0,1,0,1,1,0,0,1,0,1,0,0,1,0,0,1,0,1,0,1,0,0,0,1,0,1,0,0,1,0,0,1,0,1,0,1,0,0,0,1,0,0,1,0,0,0,0,1,0,1,0,1,1,0,0,1,0,0,0,1,0,0,0,1,0,1,0,1,0,1,0,1,0,0,0,0,1,0,0,1,0,1,0,1,0,0,1,1,0,0,0,0,0,1,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,1,1,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,0,0],
+        'onepiece': [0,0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,1,1,1,1,0,0,0,0,0,1,1,1,1,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,1,1,1,0,0,1,0,0,1,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,1,1,0,1,1,1,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,0,0,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,0,1,0,0,1,1,0,0,1,1,0,0,1,1,0,0,0,0,1,1,0,0,1,1,0,0,1,1,0,0,0],
+        'rabbit':   [0,0,1,1,0,0,0,0,0,0,0,1,1,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,1,0,0,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,0,1,0,0,1,0,1,0,0,1,0,0,0,0,0,0,0,0,1,0,1,1,1,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,1,1,0,0,0,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0]
     };
 
     var opt = {
@@ -50,19 +50,15 @@ $(function() {
     }
 
     function get_data() {
-        var data = "";
+        var data = [];
         for (var i = 1; i <= 16; ++i) {
             for (var j = 1; j <= 16; ++j) {
                 var panel = $('#panel' + i + '-' + j);
-
-                if (panel.hasClass('white')) {
-                    data += '0';
-                }
-                else if (panel.hasClass('black')) {
-                    data += '1';
+                if (typeof panel.attr("data-color-code") !== 'undefined') {
+                    data.push(parseInt(panel.attr("data-color-code")));
                 }
                 else {
-                    data += '.';
+                    data.push(null);
                 }
             }
         }
@@ -75,16 +71,11 @@ $(function() {
                 var panel = $('#panel' + i + '-' + j);
 
                 var k = 16 * (i - 1) + (j - 1);
-                if (data[k] === '0') {
-                    panel.addClass("white invisible-text");
-                    panel.removeClass("black");
-                }
-                else if (data[k] === '1') {
-                    panel.addClass("black invisible-text");
-                    panel.removeClass("white");
+                if (data[k] !== null) {
+                    panel.attr("data-color-code", data[k]);
                 }
                 else {
-                    panel.removeClass("white black invisible-text");
+                    panel.removeAttr("data-color-code");
                 }
             }
         }
@@ -98,18 +89,8 @@ $(function() {
         });
     }
 
-    function change_panel_color(panel, color) {
-        if (color == "black") {
-            $(panel).removeClass("black");
-            $(panel).addClass("white invisible-text");
-        }
-        else if (color == "white") {
-            $(panel).removeClass("white");
-            $(panel).addClass("black invisible-text");
-        }
-        else {
-            console.log("Error: change_panel_color: unexpected color \"" + color + "\".");
-        }
+    function change_panel_color(panel, color_code) {
+        $(panel).attr("data-color-code", color_code);
         save_state();
     }
 
@@ -218,12 +199,12 @@ $(function() {
             target: this,
             initial_panel_color: $(this).hasClass("white") ? "white" : "black"
         };
-        change_panel_color(this, mouse_tracking.initial_panel_color);
+        change_panel_color(this, $("#palette .color.selected").data("code"));
     }
 
     function on_panel_mousemove(e) {
         if (mouse_tracking && mouse_tracking.target !== this) {
-            change_panel_color(this, mouse_tracking.initial_panel_color);
+            change_panel_color(this, $("#palette .color.selected").data("code"));
             mouse_tracking.target = this;
         }
     }
@@ -240,7 +221,7 @@ $(function() {
                     target: target,
                     initial_panel_color: $(target).hasClass("white") ? "white" : "black"
                 };
-                change_panel_color(target, touch_tracking[t.identifier].initial_panel_color);
+                change_panel_color(target, $("#palette .color.selected").data("code"));
             }
         });
     }
@@ -250,7 +231,7 @@ $(function() {
             var target = document.elementFromPoint(t.clientX, t.clientY);
             if ($(target).hasClass('panel')) {
                 if (touch_tracking[t.identifier] && touch_tracking[t.identifier].target !== target) {
-                    change_panel_color(target, touch_tracking[t.identifier].initial_panel_color);
+                    change_panel_color(target, $("#palette .color.selected").data("code"));
                     touch_tracking[t.identifier].target = target;
                 }
             }
@@ -299,11 +280,8 @@ $(function() {
         for (var i = 0; i < 16; ++i) {
             for (var j = 0; j < 16; ++j) {
                 var k = 16 * i + j;
-                if (data[k] === '0') {
-                    ctx.fillStyle = 'white';
-                }
-                else if (data[k] === '1') {
-                    ctx.fillStyle = 'black';
+                if (data[k] !== null) {
+                    ctx.fillStyle = code_to_color[data[k]];
                 }
                 else {
                     ctx.fillStyle = 'gray';
@@ -398,6 +376,21 @@ $(function() {
     });
 
     // UI
+    // palette
+    var code_to_color = [];
+    $("#palette .color").each(function(i) {
+        var color = $(this).data("color");
+        $(this).css("background-color", color);
+        code_to_color[i] = color;
+        $(this).attr("data-code", i);
+        $("<style>.panel[data-color-code=\"" + i + "\"] { background-color: " + color + "; }</style>").appendTo("html > head");
+    });
+    $("#palette .color").on(is_touch_device() ? "touchstart" : "mousedown", function() {
+        $("#palette .color").removeClass("selected");
+        $(this).addClass("selected");
+    });
+    $("#palette .color").first().addClass("selected");
+
     // title
     if (opt.title) {
         $('head > title').text(opt.title);
@@ -432,7 +425,7 @@ $(function() {
     for (var i = 0; i < opt.preset.length; ++i) {
         var scale = Math.floor($('#load-button').width() / 16);
         var data = preset_data[opt.preset[i]];
-        localStorage[i + 1] = data;
+        localStorage[i + 1] = JSON.stringify(data);
         var thumbnail = make_thumbnail(data, scale)
         $('#load-button' + (i + 1)).css('background-image', 'url(' + thumbnail + ')');
         $('#save-button' + (i + 1)).css('background-image', 'url(' + thumbnail + ')');
@@ -456,7 +449,7 @@ $(function() {
         $('<style>#row' + i + ':before { content: "' + num_str + '"; }</style>').appendTo('head');
     }
     if (opt.data !== null) {
-        set_data(opt.data);
+        set_data(JSON.parse(opt.data));
         save_state();
     }
     else if (typeof localStorage['resume_data'] !== 'undefined') {
@@ -498,26 +491,38 @@ $(function() {
 
     // Events
     // memory management UI
+    function load_data(n) {
+        if (typeof localStorage[n] !== 'undefined') {
+            return JSON.parse(localStorage[n]);
+        }
+        else {
+            var data = [];
+            for (var i = 0; i < 16 * 16; ++i) {
+                data[i] = null;
+            }
+            return data;
+        }
+    }
     $('.load-button').each(function() {
         var n = parseInt($(this).attr("id").slice('load-button'.length));
         var scale = Math.floor($(this).width() / 16);
-        $(this).css('background-image', 'url(' + make_thumbnail(localStorage[n] || '', scale) + ')');
+        $(this).css('background-image', 'url(' + make_thumbnail(load_data(n), scale) + ')');
     });
     $('.load-button').on('click', function() {
         var n = parseInt($(this).attr("id").slice('load-button'.length));
-        set_data(localStorage[n] || '');
+        set_data(load_data(n));
         save_state();
     });
     $('.save-button').each(function() {
         var n = parseInt($(this).attr("id").slice('save-button'.length));
         var scale = Math.floor($(this).width() / 16);
-        $(this).css('background-image', 'url(' + make_thumbnail(localStorage[n] || '', scale) + ')');
+        $(this).css('background-image', 'url(' + make_thumbnail(load_data(n), scale) + ')');
     });
     $('.save-button').on('click', function() {
         var n = parseInt($(this).attr("id").slice('save-button'.length));
         var scale = Math.floor($(this).width() / 16);
         var data = get_data();
-        localStorage[n] = data;
+        localStorage[n] = JSON.stringify(data);
         var thumbnail = make_thumbnail(data, scale)
         $(this).css('background-image', 'url(' + thumbnail + ')');
         $('#load-button' + n).css('background-image', 'url(' + thumbnail + ')');

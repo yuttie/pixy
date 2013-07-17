@@ -96,17 +96,11 @@
     background-color: white;
     color: #ff6600;
 }
+.panel[data-color-code] {
+    color: transparent;
+}
 .row.selected .panel:before {
     display: block;
-}
-.black {
-    background-color: black;
-}
-.white {
-    background-color: white;
-}
-.invisible-text {
-    color: rgba(0, 0, 0, 0);
 }
 body {
     /* cover the entire screen */
@@ -131,12 +125,32 @@ body {
     margin-right: auto;
 }
 #vcentering {
-    width: 100%;
+    width: 80%;
     /* center the content vertically */
     position: absolute;
+    left: 0;
     height: 640px;  /* total height of 16 panels with 40px height */
     top: 50%;
     margin-top: -320px;
+}
+#toolbox {
+    border: 1px solid black;
+    width: 20%;
+    /* center the content vertically */
+    position: absolute;
+    right: 0;
+    height: 640px;  /* total height of 16 panels with 40px height */
+    top: 50%;
+    margin-top: -320px;
+}
+.color {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    border: 1px solid black;
+}
+.color.selected {
+    border: 4px solid red;
 }
 #view, #mask-window {
     /* put them at the same position with the same size */
