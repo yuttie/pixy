@@ -269,7 +269,7 @@ $(function() {
 
     function export_data() {
         var loc = window.location;
-        loc.search = change_query_string(loc.search, { 'data': get_data() });
+        loc.search = change_query_string(loc.search, { 'data': JSON.stringify(get_data()) });
     }
 
     function make_thumbnail(data, scale) {
