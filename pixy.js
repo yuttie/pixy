@@ -391,6 +391,16 @@ $(function() {
     });
     $("#palette .color").first().addClass("selected");
 
+    // fill button
+    $("#fill").on(is_touch_device() ? "touchstart" : "mousedown", function() {
+        var color_code = parseInt($("#palette .color.selected").data("code"));
+        var data = [];
+        for (var i = 0; i < 16 * 16; ++i) {
+            data[i] = color_code;
+        }
+        set_data(data);
+    });
+
     // title
     if (opt.title) {
         $('head > title').text(opt.title);
